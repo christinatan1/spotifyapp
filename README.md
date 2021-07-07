@@ -81,7 +81,7 @@ Allows people using the app to share their music with their follows and see musi
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://github.com/christinatan1/spotifyapp/blob/main/wireframe.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
