@@ -83,15 +83,41 @@ Allows people using the app to share their music with their follows and see musi
 [Add picture of your hand sketched wireframes in this section]
 <img src="https://github.com/christinatan1/spotifyapp/blob/main/wireframe.jpg" width=600>
 
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
-
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+| Property  | Type | Description |
+| --------- | -------- | ---------- |
+| objectId  | String | unique id for the user post (default field) |
+| author  | Pointer to User  | post author |
+| image  | File  | playlist/song album image that user posts |
+| title | String | playlist title/song title that user posts|
+| caption | String | post caption from user |
+| createdAt | DateTime | date when post is created (default field) |
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+Home Feed Screen
+- (Read/GET) Query all posts from following and user themselves
+
+Friends Playing Screen
+- (GET) Get currently playing songs from following's profiles
+
+Profile Screen
+- (Read/GET) Query logged in user object
+
+Create Post Screen
+- (Create/POST) Create a new post object
+
+Add Friends Screen
+- (GET) Get all usernames and filter
+
+
+Spotify API: 
+| HTTP  | Endpoint | Description |
+| --------- | -------- | ---------- |
+| GET | /playlist | Playlist cover |
+| GET  |  users/{user_id} | User profile picture and username |
+| GET | me/player/currently-playing | Curretly playing song |
+| GET  | /me/player  | Most recently played song |
