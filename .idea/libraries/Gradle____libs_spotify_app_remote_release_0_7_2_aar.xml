@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./libs/spotify-app-remote-release-0.7.2.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1bffb89041f3492ae8cfdd12e8503f13/jetified-spotify-app-remote-release-0.7.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1bffb89041f3492ae8cfdd12e8503f13/jetified-spotify-app-remote-release-0.7.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1bffb89041f3492ae8cfdd12e8503f13/jetified-spotify-app-remote-release-0.7.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

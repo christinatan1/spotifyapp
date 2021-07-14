@@ -2,6 +2,7 @@ package com.example.spotify.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.spotify.LoginActivity;
+import com.example.spotify.MainActivity;
 import com.example.spotify.R;
 import com.parse.ParseUser;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 public class ProfileFragment extends Fragment {
+    // spotify info
+    private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
+    private static final String REDIRECT_URI = "com.example.spotify://callback";
+    private SpotifyAppRemote mSpotifyAppRemote;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -24,6 +33,7 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private Button logoutBtn;
+    private Button connectBtn;
 
     public ProfileFragment() {
         // required empty public constructor
@@ -60,6 +70,7 @@ public class ProfileFragment extends Fragment {
 
         // connect to xml file
         logoutBtn = view.findViewById(R.id.logoutBtn);
+        connectBtn = view.findViewById(R.id.connectBtn);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,5 +81,40 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        connectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connect();
+            }
+        });
+    }
+
+    private void connect() {
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
+
+        SpotifyAppRemote.connect(getContext(), connectionParams,
+                new Connector.ConnectionListener() {
+
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+                        Log.d("MainActivity", "Connected! Yay!");
+
+                        // Now you can start interacting with App Remote
+                        Intent intent = new Intent(getContext(),
+                                HomeFragment.class);
+                        startActivity(intent);
+                    }
+
+                    public void onFailure(Throwable throwable) {
+                        Log.e("MyActivity", throwable.getMessage(), throwable);
+
+                        // Something went wrong when attempting to connect, Handle errors here
+                    }
+                });
     }
 }

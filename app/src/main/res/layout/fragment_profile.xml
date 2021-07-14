@@ -7,6 +7,14 @@
     tools:context=".Fragments.ProfileFragment">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/connectBtn"
+        android:text="Connect to Spotify"
+        android:layout_centerHorizontal="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutBtn"
         android:text="Logout"
         android:layout_centerHorizontal="true"
