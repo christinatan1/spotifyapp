@@ -29,6 +29,9 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
     private static final String REDIRECT_URI = "com.example.spotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
+    private static final int REQUEST_CODE = 1337;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
@@ -76,48 +80,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+
+        AuthorizationRequest.Builder builder =
+                new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
+
+        builder.setScopes(new String[]{"streaming"});
+        AuthorizationRequest request = builder.build();
+
+        AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        // Check if result comes from the correct activity
+        if (requestCode == REQUEST_CODE) {
+            AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, intent);
+
+            switch (response.getType()) {
+                // Response was successful and contains auth token
+                case TOKEN:
+                    // Handle successful response
+                    Log.d("MainActivity", "Token successful" + response.getAccessToken());
+                    break;
+
+                // Auth flow returned an error
+                case ERROR:
+                    // Handle error response
+                    break;
+
+                // Most likely auth flow was cancelled
+                default:
+                    // Handle other cases
+            }
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        ConnectionParams connectionParams =
-//                new ConnectionParams.Builder(CLIENT_ID)
-//                        .setRedirectUri(REDIRECT_URI)
-//                        .showAuthView(true)
-//                        .build();
-//
-//        SpotifyAppRemote.connect(this, connectionParams,
-//                new Connector.ConnectionListener() {
-//
-//                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-//                        mSpotifyAppRemote = spotifyAppRemote;
-//                        Log.d("MainActivity", "Connected! Yay!");
-//
-//                        // Now you can start interacting with App Remote
-//                        connected();
-//
-//                    }
-//
-//                    public void onFailure(Throwable throwable) {
-//                        Log.e("MyActivity", throwable.getMessage(), throwable);
-//
-//                        // Something went wrong when attempting to connect, Handle errors here
-//                    }
-//                });
-    }
-
-    private void connected() {
-        // Then we will write some more code here.
-        Intent intent = new Intent(MainActivity.this,
-                HomeFragment.class);
-        startActivity(intent);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        // Aaand we will finish off here.
     }
 
 }

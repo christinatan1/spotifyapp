@@ -97,6 +97,10 @@ public class ProfileFragment extends Fragment {
                         .showAuthView(true)
                         .build();
 
+        if (SpotifyAppRemote.isSpotifyInstalled(getContext())) {
+            Log.d("Profile Fragment", "Connected! Yay!");
+        }
+
         SpotifyAppRemote.connect(getContext(), connectionParams,
                 new Connector.ConnectionListener() {
 
@@ -105,16 +109,15 @@ public class ProfileFragment extends Fragment {
                         Log.d("MainActivity", "Connected! Yay!");
 
                         // Now you can start interacting with App Remote
-                        Intent intent = new Intent(getContext(),
-                                HomeFragment.class);
-                        startActivity(intent);
+
+                        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
                     }
 
                     public void onFailure(Throwable throwable) {
                         Log.e("MyActivity", throwable.getMessage(), throwable);
-
                         // Something went wrong when attempting to connect, Handle errors here
                     }
                 });
+
     }
 }
