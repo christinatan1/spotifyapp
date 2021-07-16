@@ -30,16 +30,25 @@
         android:id="@+id/connectBtn"
         android:text="Connect to Spotify"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_below="@+id/tvUsername"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutBtn"
         android:text="Logout"
+        android:layout_below="@+id/connectBtn"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPosts"
+        android:layout_below="@+id/logoutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:padding="8dp" />
 
 </RelativeLayout>
