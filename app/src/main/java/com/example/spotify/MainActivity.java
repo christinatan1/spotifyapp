@@ -3,6 +3,7 @@ package com.example.spotify;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.spotify.Fragments.DashboardFragment;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     // spotify info
     private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
     private static final String REDIRECT_URI = "com.example.spotify://callback";
-    private SpotifyAppRemote mSpotifyAppRemote;
     private static final int REQUEST_CODE = 1337;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // TODO: Add custom toolbar
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
+         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         setSupportActionBar(toolbar);
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setItemIconTintList(null);
@@ -89,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
 
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
 
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
