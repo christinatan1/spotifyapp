@@ -1,7 +1,6 @@
 package com.example.spotify;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.spotify.Post;
-import com.example.spotify.R;
+import com.example.spotify.ParseClasses.Post;
 import com.parse.ParseFile;
 
 //import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.util.List;
 

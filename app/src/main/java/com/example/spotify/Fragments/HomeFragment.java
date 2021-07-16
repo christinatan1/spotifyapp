@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.spotify.Post;
+import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.PostsAdapter;
 import com.example.spotify.R;
 import com.parse.FindCallback;

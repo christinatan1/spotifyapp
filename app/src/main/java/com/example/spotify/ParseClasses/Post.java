@@ -1,4 +1,4 @@
-package com.example.spotify;
+package com.example.spotify.ParseClasses;
 
 import android.util.Log;
 

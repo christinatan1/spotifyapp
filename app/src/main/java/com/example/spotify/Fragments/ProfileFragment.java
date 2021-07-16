@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotify.Activities.LoginActivity;
-import com.example.spotify.Post;
+import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.PostsAdapter;
 import com.example.spotify.R;
 import com.parse.FindCallback;
@@ -163,13 +163,9 @@ public class ProfileFragment extends Fragment {
 
         SpotifyAppRemote.connect(getContext(), connectionParams,
                 new Connector.ConnectionListener() {
-
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
                         Log.d("MainActivity", "Connected! Yay!");
-
-                        // Now you can start interacting with App Remote
-
                         mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
                     }
 
@@ -178,6 +174,5 @@ public class ProfileFragment extends Fragment {
                         // Something went wrong when attempting to connect, Handle errors here
                     }
                 });
-
     }
 }
