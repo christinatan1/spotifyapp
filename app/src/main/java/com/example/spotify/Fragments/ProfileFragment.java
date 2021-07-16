@@ -12,8 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.spotify.LoginActivity;
-import com.example.spotify.MainActivity;
+import com.example.spotify.Activities.LoginActivity;
 import com.example.spotify.R;
 import com.parse.ParseUser;
 import com.spotify.android.appremote.api.ConnectionParams;

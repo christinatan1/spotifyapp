@@ -6,11 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ProfileFragment">
 
+    <ImageView
+        android:id="@+id/ivProfilePic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProfilePic"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:text="christina" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/connectBtn"
         android:text="Connect to Spotify"
         android:layout_centerHorizontal="true"
-
+        android:layout_marginTop="230dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
