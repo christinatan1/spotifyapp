@@ -3,6 +3,7 @@ package com.example.spotify.ParseClasses;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("User")
 public class User extends ParseObject {
@@ -10,11 +11,21 @@ public class User extends ParseObject {
     public static final String KEY_PROFILE = "profilePicture";
     public static final String KEY_FOLLOWERS = "followers";
     public static final String KEY_FOLLOWING = "following";
+    public static final String KEY_USERNAME = "username";
 
+    public User(){
+        super();
+    }
 
+//    public ParseUser getUser(){
+//        return getParseUser(KEY_USER);
+//    }
+
+    public String getUsername(){
+        return getString(KEY_USERNAME);
+    }
     public int getFollowers() { return getInt(KEY_FOLLOWERS); }
     public int getFollowing() { return getInt(KEY_FOLLOWING); }
-
     public ParseFile getProfile() { return getParseFile(KEY_PROFILE); }
 
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +16,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.spotify.Activities.LoginActivity;
 import com.example.spotify.ParseClasses.Post;
+import com.example.spotify.ParseClasses.User;
 import com.example.spotify.PostsAdapter;
 import com.example.spotify.R;
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.spotify.android.appremote.api.ConnectionParams;
@@ -43,12 +48,16 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button logoutBtn;
-    private Button connectBtn;
-    private ImageView ivProfilePic;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
+
+    private Button logoutBtn;
+    private Button connectBtn;
     private RecyclerView rvPosts;
+    private TextView tvUsername;
+    private ImageView ivProfilePic;
+    private TextView followerCount;
+    private TextView followingCount;
 
     public ProfileFragment() {
         // required empty public constructor
@@ -88,6 +97,9 @@ public class ProfileFragment extends Fragment {
         connectBtn = view.findViewById(R.id.connectBtn);
         ivProfilePic = view.findViewById(R.id.ivProfilePic);
         rvPosts = view.findViewById(R.id.rvPosts);
+        tvUsername = view.findViewById(R.id.tvUsername);
+        followerCount = view.findViewById(R.id.followerCount);
+        followingCount = view.findViewById(R.id.followingCount);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
@@ -116,6 +128,18 @@ public class ProfileFragment extends Fragment {
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
         queryPosts(0);
+
+        // TODO: create new Parse user class
+        // User currentUser = new User();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
+        if (parseProfilePic != null){
+            Glide.with(getContext()).load(parseProfilePic.getUrl()).into(ivProfilePic);
+        }
+        tvUsername.setText(currentUser.getUsername());
+        followerCount.setText(String.valueOf(currentUser.getInt("followers")));
+        followingCount.setText(String.valueOf(currentUser.getInt("following")));
+
     }
 
     protected void queryPosts(int i) {
@@ -165,12 +189,12 @@ public class ProfileFragment extends Fragment {
                 new Connector.ConnectionListener() {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
+                        Log.d(TAG, "Connected! Yay!");
                         mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
                     }
 
                     public void onFailure(Throwable throwable) {
-                        Log.e("MyActivity", throwable.getMessage(), throwable);
+                        Log.e(TAG, throwable.getMessage(), throwable);
                         // Something went wrong when attempting to connect, Handle errors here
                     }
                 });
