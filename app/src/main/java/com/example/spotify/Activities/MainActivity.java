@@ -10,6 +10,7 @@ import com.example.spotify.Fragments.DashboardFragment;
 import com.example.spotify.Fragments.HomeFragment;
 import com.example.spotify.Fragments.ProfileFragment;
 import com.example.spotify.R;
+import com.example.spotify.SpotifyClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
     // spotify info
     private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
     private static final String REDIRECT_URI = "com.example.spotify://callback";
+    private static final String[] scope = {"user-read-playback-state"};
     private static final int REQUEST_CODE = 1337;
+    public static String ACCESS_TOKEN;
+
+
+
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
 
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_profile:
                     default:
-                        fragment = new ProfileFragment();
+                        fragment = new ProfileFragment(ACCESS_TOKEN);
                         break;
                 }
                 // replace frame layout with the icon(fragment) selected
@@ -70,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
         AuthorizationRequest.Builder builder =
                 new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
 
-        builder.setScopes(new String[]{"streaming"});
+//        builder.setScopes(new String[]{"streaming"});
+        builder.setScopes(scope);
         AuthorizationRequest request = builder.build();
 
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -113,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 // response was successful and contains auth token
                 case TOKEN:
                     // handle successful response
-                    Log.d("MainActivity", "Token successful" + response.getAccessToken());
+                    Log.d("MainActivity", "Token successful " + response.getAccessToken());
+                    ACCESS_TOKEN = response.getAccessToken();
                     break;
 
                 // auth flow returned an error
