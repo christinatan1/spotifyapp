@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -26,6 +27,7 @@ import com.example.spotify.ParseClasses.User;
 import com.example.spotify.PostsAdapter;
 import com.example.spotify.R;
 import com.example.spotify.SpotifyClient;
+import com.example.spotify.VolleyCallback;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -35,6 +37,8 @@ import com.parse.ParseUser;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +68,8 @@ public class ProfileFragment extends Fragment {
     private ImageView ivProfilePic;
     private TextView followerCount;
     private TextView followingCount;
+    private TextView currentSong;
+    private TextView currentSongArtist;
     public static String ACCESS_TOKEN;
 
 
@@ -113,6 +119,8 @@ public class ProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.tvUsername);
         followerCount = view.findViewById(R.id.followerCount);
         followingCount = view.findViewById(R.id.followingCount);
+        currentSong = view.findViewById(R.id.currentSong);
+        currentSongArtist = view.findViewById(R.id.currentSongArtist);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
@@ -132,6 +140,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 connect();
+//                currentSong.setText();
             }
         });
 
@@ -147,7 +156,7 @@ public class ProfileFragment extends Fragment {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
-            Glide.with(getContext()).load(parseProfilePic.getUrl()).into(ivProfilePic);
+            Glide.with(getContext()).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
@@ -206,7 +215,15 @@ public class ProfileFragment extends Fragment {
 //                        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
 
                         SpotifyClient client = new SpotifyClient(getContext(), ACCESS_TOKEN);
-                        client.getCurrentTrack();
+                        client.getCurrentTrack(new VolleyCallback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d(TAG, client.artist);
+                                Log.d(TAG, client.song);
+                                currentSong.setText(client.song);
+                                currentSongArtist.setText(client.artist);
+                            }
+                        });
                     }
 
                     public void onFailure(Throwable throwable) {

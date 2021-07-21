@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotify.ParseClasses.Post;
 import com.parse.ParseFile;
 
@@ -100,7 +101,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 //            }
             ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
             if (profilePhoto != null){
-                Glide.with(context).load(profilePhoto.getUrl()).into(ivProfile);
+                Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfile);
             }
         }
     }
