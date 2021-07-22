@@ -2,19 +2,26 @@ package com.example.spotify;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.spotify.Activities.ComposeActivity;
+import com.example.spotify.Activities.MainActivity;
 import com.example.spotify.ParseClasses.Post;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.SaveCallback;
 
 //import org.parceler.Parcels;
 
@@ -25,6 +32,7 @@ import java.util.List;
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
     private Context context;
     private List<Post> posts;
+    public static final String TAG = "PostsAdapter";
 
     // constructor
     public PostsAdapter(Context context, List<Post> posts) {
@@ -56,6 +64,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Intent i = new Intent(context, UserProfiles.class);
                 i.putExtra(Post.class.getName(), Parcels.wrap(post));
                 context.startActivity(i);
+            }
+        });
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                post.addLikes();
+                holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
+                post.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null){
+                            Log.e(TAG, "Error while saving", e);
+                        }
+                        else {
+                            Log.i(TAG, "Post save was successful!");
+                        }
+                    }
+                });
             }
         });
 
@@ -92,6 +119,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvDescription;
         private TextView tvTime;
         private ImageView ivProfile;
+        private TextView numLikes;
+        private ImageButton like;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
@@ -101,12 +130,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
 //            tvTime = itemView.findViewById(R.id.tvTime);
             ivProfile = itemView.findViewById(R.id.ivProfile);
+            numLikes = itemView.findViewById(R.id.numLikes);
+            like = itemView.findViewById(R.id.like);
         }
 
         public void bind(Post post) {
             // bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            numLikes.setText(String.valueOf(post.getLikes()) + " likes");
 //            ParseFile image = post.getImage();
 //            if (image != null) {
 //                Glide.with(context).load(image.getUrl()).into(ivImage);

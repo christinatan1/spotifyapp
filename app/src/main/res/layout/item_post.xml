@@ -29,4 +29,20 @@
         android:layout_marginBottom="8dp"
         tools:text="loving this song!!" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/like"
+        android:layout_below="@+id/tvDescription"
+
+        android:src="@drawable/like_selector"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/like"
+        android:id="@+id/numLikes"
+        android:layout_below="@id/tvDescription"
+        android:text="2 likes" />
+
 </RelativeLayout>
