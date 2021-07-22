@@ -1,6 +1,7 @@
 package com.example.spotify;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.example.spotify.ParseClasses.Post;
 import com.parse.ParseFile;
 
 //import org.parceler.Parcels;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -46,6 +49,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         // get the post at current position
         Post post = posts.get(position);
         holder.bind(post);
+
+        holder.tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, UserProfiles.class);
+//                i.putExtra(Post.class.getName(), Parcels.wrap(post));
+                context.startActivity(i);
+            }
+        });
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override

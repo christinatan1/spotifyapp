@@ -19,6 +19,7 @@
         android:theme="@style/Theme.Spotify">
         <activity android:name=".Activities.ComposeActivity"></activity>
         <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".UserProfiles" />
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,9 +1,12 @@
 package com.example.spotify.ParseClasses;
 
+import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import org.parceler.Parcel;
 
 @ParseClassName("User")
 public class User extends ParseObject {
@@ -13,12 +16,8 @@ public class User extends ParseObject {
     public static final String KEY_FOLLOWING = "following";
     public static final String KEY_USERNAME = "username";
 
-    public User(){
-        super();
-    }
-
-//    public ParseUser getUser(){
-//        return getParseUser(KEY_USER);
+//    public void setUser(ParseUser currentUser){
+//        user = currentUser;
 //    }
 
     public String getUsername(){

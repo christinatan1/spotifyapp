@@ -39,6 +39,7 @@ import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import org.json.JSONException;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +80,6 @@ public class ProfileFragment extends Fragment {
 
     public ProfileFragment(String access_token) {
         ACCESS_TOKEN = access_token;
-        // required empty public constructor
     }
 
     public static ProfileFragment newInstance(String param1, String param2) {
@@ -130,7 +130,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ParseUser.logOut();
-
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 startActivity(i);
             }
@@ -139,8 +138,8 @@ public class ProfileFragment extends Fragment {
         connectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // gets user data and changes the default text to current song info
                 connect();
-//                currentSong.setText();
             }
         });
 
@@ -151,15 +150,17 @@ public class ProfileFragment extends Fragment {
 
         queryPosts(0);
 
-        // TODO: create new Parse user class
-        // User currentUser = new User();
+        // **figure out how to convert ParseUser to user class
         ParseUser currentUser = ParseUser.getCurrentUser();
+//        ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(getContext()).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
+//        followerCount.setText(String.valueOf(currentUser.getFollowers()));
+//        followingCount.setText(String.valueOf(currentUser.getFollowing()));
         followingCount.setText(String.valueOf(currentUser.getInt("following")));
 
     }
@@ -227,8 +228,8 @@ public class ProfileFragment extends Fragment {
                     }
 
                     public void onFailure(Throwable throwable) {
-                        Log.e(TAG, throwable.getMessage(), throwable);
                         // Something went wrong when attempting to connect, Handle errors here
+                        Log.e(TAG, throwable.getMessage(), throwable);
                     }
                 });
     }

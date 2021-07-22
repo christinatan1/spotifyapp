@@ -49,12 +49,12 @@ public class SpotifyClient {
                     public void onResponse(JSONObject getResponse) {
                         Log.i("VOLLEY", getResponse.toString());
                         try {
+                            // get correct data that we want after getting response back
                             artist = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name");
-//                            Log.i("VOLLEY", artist);
                             song = getResponse.getJSONObject("item").getString("name");
-//                            Log.i("VOLLEY", song);
-                            callback.onSuccess();
 
+                            // call to interface after getting data
+                            callback.onSuccess();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
