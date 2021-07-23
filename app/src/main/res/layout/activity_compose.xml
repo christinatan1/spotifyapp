@@ -14,13 +14,40 @@
         android:ems="10"
         android:hint="Description..." />
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_below="@id/etDescription"
-        android:layout_marginTop="20dp"
+
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onSubmitBtn"
+        android:id="@+id/postChoices"
+        android:layout_below="@+id/etDescription"
+        android:padding="10px">
+
+        <RadioButton
+            android:id="@+id/currentSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Current Playing Song: [Song Name] by [Song Artist]" />
+
+        <RadioButton
+            android:id="@+id/topSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Top Song This Month: [Song Name] by [Song Artist]" />
+
+
+    </RadioGroup>
+
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/postChoices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         android:text="Submit"/>
 
 </RelativeLayout>

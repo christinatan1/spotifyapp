@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
     private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
     private static final String REDIRECT_URI = "com.example.spotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
+    public static String ACCESS_TOKEN;
     public static final String TAG = "ProfileFragment";
 
     private static final String ARG_PARAM1 = "param1";
@@ -71,7 +72,6 @@ public class ProfileFragment extends Fragment {
     private TextView followingCount;
     private TextView currentSong;
     private TextView currentSongArtist;
-    public static String ACCESS_TOKEN;
 
 
     public ProfileFragment() {
@@ -135,13 +135,15 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        connectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // gets user data and changes the default text to current song info
-                connect();
-            }
-        });
+        connect();
+
+//        connectBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // gets user data and changes the default text to current song info
+//                connect();
+//            }
+//        });
 
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);

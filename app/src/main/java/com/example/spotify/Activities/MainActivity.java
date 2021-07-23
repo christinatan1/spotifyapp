@@ -23,6 +23,9 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import org.parceler.Parcel;
+import org.parceler.Parcels;
+
 public class MainActivity extends AppCompatActivity {
 
     // spotify info
@@ -31,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] scope = {"user-read-playback-state"};
     private static final int REQUEST_CODE = 1337;
     public static String ACCESS_TOKEN;
-
-
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void composePost() {
         Intent i = new Intent(MainActivity.this, ComposeActivity.class);
+
+        // send access token to compose activity
+        i.putExtra("user", ACCESS_TOKEN);
         startActivity(i);
     }
 

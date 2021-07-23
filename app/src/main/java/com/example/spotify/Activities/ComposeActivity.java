@@ -8,19 +8,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.spotify.ParseClasses.Post;
+import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.parceler.Parcels;
 
 public class ComposeActivity extends AppCompatActivity {
 
     private EditText etDescription;
     private Button btnSubmit;
     public static final String TAG = "ComposeActivity";
+
+    // fix this when possible
+    public static String ACCESS_TOKEN = MainActivity.ACCESS_TOKEN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,34 @@ public class ComposeActivity extends AppCompatActivity {
                 savePost(description, currentUser);
             }
         });
+
+        // get spotify info, fill it in in radio buttons
+        setButtons();
+
+        // get access token after connecting in main activity
+        // ACCESS_TOKEN = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        Log.d(TAG, ACCESS_TOKEN);
+    }
+
+    private void setButtons() {
+
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.currentSong:
+                if (checked)
+
+                    break;
+            case R.id.topSong:
+                if (checked)
+
+                    break;
+        }
     }
 
     private void savePost(String description, ParseUser currentUser) {

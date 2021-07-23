@@ -78,23 +78,7 @@ public class SpotifyClient {
         };
         queue.add(jsonObjectRequest);
 
-//        Map<String, String> output = new HashMap<>();
-//        String[] output = { artist, song };
-//        Log.d("Volley", output[0]);
-
-        // add artist + song name to output
-
     }
-
-
-//    public void getCurrentTrack2(){
-//        OkHttpClient client = new OkHttpClient();
-//
-//        Request request = new Request.Builder()
-//                .header("Authorization", ACCESS_TOKEN)
-//                .url(GET_CURRENT_TRACK_URL)
-//                .build();
-//    }
 
 }
 
