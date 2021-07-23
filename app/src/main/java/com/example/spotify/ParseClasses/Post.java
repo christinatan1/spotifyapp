@@ -16,6 +16,7 @@ import java.util.Date;
 public class Post extends ParseObject {
 
     public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_DESCRIPTION_SPOTIFY = "descriptionSpotify";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_KEY = "createdAt";
@@ -29,6 +30,8 @@ public class Post extends ParseObject {
     public void setDescription(String description){
         put(KEY_DESCRIPTION, description);
     }
+
+    public void setDescriptionSpotify(String description){ put(KEY_DESCRIPTION_SPOTIFY, description); };
 
     public ParseFile getImage(){
         return getParseFile(KEY_IMAGE);

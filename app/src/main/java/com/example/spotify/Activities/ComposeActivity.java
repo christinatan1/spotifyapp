@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.spotify.ParseClasses.Post;
@@ -31,6 +32,11 @@ public class ComposeActivity extends AppCompatActivity {
     private Button btnSubmit;
     private RadioButton currentSong;
     private RadioButton topSong;
+    private String description_topSong;
+    private String description_currentSong;
+    private String descriptionSpotify;
+    private boolean checkCurrent = false;
+    private boolean checkTop = false;
     public static final String TAG = "ComposeActivity";
 
     // spotify info
@@ -52,19 +58,7 @@ public class ComposeActivity extends AppCompatActivity {
         topSong = findViewById(R.id.topSong);
 
         // submit post
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String description = etDescription.getText().toString();
-                if (description.isEmpty()) {
-                    Toast.makeText(ComposeActivity.this, "Description cannot be empty",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser);
-            }
-        });
+        submitListener();
 
         // get spotify info, fill it in in radio buttons
         setButtons();
@@ -72,6 +66,34 @@ public class ComposeActivity extends AppCompatActivity {
         // get access token after connecting in main activity
         // ACCESS_TOKEN = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         Log.d(TAG, ACCESS_TOKEN);
+    }
+
+
+    // user - post on timeline
+    private void submitListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String description = etDescription.getText().toString();
+                if (description.isEmpty()) {
+                    Toast.makeText(ComposeActivity.this, "Description cannot be empty",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ParseUser currentUser = ParseUser.getCurrentUser();
+
+                descriptionSpotify = onRadioButtonClicked(topSong);
+                descriptionSpotify = onRadioButtonClicked(currentSong);
+
+                if (descriptionSpotify != null){
+                    savePostSpotify(description, descriptionSpotify, currentUser);
+                } else {
+                    savePost(description, currentUser);
+                }
+            }
+        });
     }
 
     private void setButtons() {
@@ -91,14 +113,16 @@ public class ComposeActivity extends AppCompatActivity {
                         client.getCurrentTrack(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
-                                currentSong.setText("Current Song Playing: " + client.current_song + ", " + client.current_artist);
+                                description_currentSong = "Current Song Playing: " + client.current_song + ", " + client.current_artist;
+                                currentSong.setText(description_currentSong);
                             }
                         });
 
                         client.getTopTrack(new VolleyCallback(){
                             @Override
                             public void onSuccess(){
-                                topSong.setText("Top Song This Month: " + client.top_song + ", " + client.top_artist);
+                                description_topSong = "Top Song This Month: " + client.top_song + ", " + client.top_artist;
+                                topSong.setText(description_topSong);
                             }
                         });
                     }
@@ -110,7 +134,7 @@ public class ComposeActivity extends AppCompatActivity {
                 });
     }
 
-    public void onRadioButtonClicked(View view) {
+    public String onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
@@ -118,18 +142,41 @@ public class ComposeActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.currentSong:
                 if (checked)
-
+                    return description_currentSong;
                     break;
             case R.id.topSong:
                 if (checked)
-
+                    return description_topSong;
                     break;
         }
+        return null;
     }
 
+    // user has choice whether or not to post with or without spotify info
     private void savePost(String description, ParseUser currentUser) {
         Post post = new Post();
         post.setDescription(description);
+        post.setUser(currentUser);
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i(TAG, "Post save was successful!");
+                etDescription.setText("");
+
+                Intent i = new Intent(ComposeActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void savePostSpotify(String description, String spotifyDescription, ParseUser currentUser) {
+        Post post = new Post();
+        post.setDescription(description);
+        post.setDescriptionSpotify(spotifyDescription);
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
             @Override
