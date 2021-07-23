@@ -124,7 +124,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPosts"
-        android:layout_below="@+id/currentSong"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/currentSongArtist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
