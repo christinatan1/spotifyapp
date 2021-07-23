@@ -31,9 +31,10 @@ Allows people using the app to share their music with their follows and see musi
 
 * User can create a profile 
 * User can connect to their Spotify account and see their playlists and recently played
-* User can post playlists to their timeline
+* User can post songs to their timeline
 * User can search for and follow other users
 * User can see timeline and view posts from users they follow
+* User can see what the people they follow are listening to
 
 **Optional Nice-to-have Stories**
 
@@ -44,6 +45,7 @@ Allows people using the app to share their music with their follows and see musi
 * User can start a group music session and listen to music simultaneously with their friends
 * User picks a song that plays to vistors on their profile
 * User can explore map and find users from around the world and visit their profile
+* User can choose song lyrics from a song and post them (using the Genuis API)
 
 
 ### 2. Screen Archetypes
@@ -58,6 +60,8 @@ Allows people using the app to share their music with their follows and see musi
    * User can view other users' posts
 * Post
     * User can post a playlist or a song onto their feed
+* Compose 
+    * User composes post onto their profile
 
 ### 3. Navigation
 
