@@ -14,9 +14,14 @@ import android.widget.Toast;
 import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
+import com.example.spotify.SpotifyClient;
+import com.example.spotify.VolleyCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import org.parceler.Parcels;
 
@@ -24,7 +29,14 @@ public class ComposeActivity extends AppCompatActivity {
 
     private EditText etDescription;
     private Button btnSubmit;
+    private RadioButton currentSong;
+    private RadioButton topSong;
     public static final String TAG = "ComposeActivity";
+
+    // spotify info
+    private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
+    private static final String REDIRECT_URI = "com.example.spotify://callback";
+    private SpotifyAppRemote mSpotifyAppRemote;
 
     // fix this when possible
     public static String ACCESS_TOKEN = MainActivity.ACCESS_TOKEN;
@@ -36,6 +48,8 @@ public class ComposeActivity extends AppCompatActivity {
 
         etDescription = findViewById(R.id.etDescription);
         btnSubmit = findViewById(R.id.btnSubmit);
+        currentSong = findViewById(R.id.currentSong);
+        topSong = findViewById(R.id.topSong);
 
         // submit post
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +75,39 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     private void setButtons() {
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
 
+        SpotifyAppRemote.connect(ComposeActivity.this, connectionParams,
+                new Connector.ConnectionListener() {
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+
+                        SpotifyClient client = new SpotifyClient(ComposeActivity.this, ACCESS_TOKEN);
+
+                        client.getCurrentTrack(new VolleyCallback() {
+                            @Override
+                            public void onSuccess() {
+                                currentSong.setText("Current Song Playing: " + client.current_song + ", " + client.current_artist);
+                            }
+                        });
+
+                        client.getTopTrack(new VolleyCallback(){
+                            @Override
+                            public void onSuccess(){
+                                topSong.setText("Top Song This Month: " + client.top_song + ", " + client.top_artist);
+                            }
+                        });
+                    }
+
+                    public void onFailure(Throwable throwable) {
+                        // Something went wrong when attempting to connect, Handle errors here
+                        Log.e(TAG, throwable.getMessage(), throwable);
+                    }
+                });
     }
 
     public void onRadioButtonClicked(View view) {

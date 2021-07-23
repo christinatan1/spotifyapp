@@ -27,14 +27,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Current Playing Song: [Song Name] by [Song Artist]" />
+            android:text="Current Song Playing: " />
 
         <RadioButton
             android:id="@+id/topSong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Top Song This Month: [Song Name] by [Song Artist]" />
+            android:text="Top Song This Month: " />
 
 
     </RadioGroup>

@@ -221,10 +221,8 @@ public class ProfileFragment extends Fragment {
                         client.getCurrentTrack(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
-                                Log.d(TAG, client.artist);
-                                Log.d(TAG, client.song);
-                                currentSong.setText(client.song);
-                                currentSongArtist.setText(client.artist);
+                                currentSong.setText(client.current_song);
+                                currentSongArtist.setText(client.current_artist);
                             }
                         });
                     }

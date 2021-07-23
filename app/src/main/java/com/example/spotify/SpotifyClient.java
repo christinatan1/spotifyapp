@@ -30,11 +30,15 @@ import retrofit.http.Path;
 public class SpotifyClient {
 
     private static final String GET_CURRENT_TRACK_URL = "https://api.spotify.com/v1/me/player";
+    private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
     private RequestQueue queue;
     public static String ACCESS_TOKEN;
-    public JSONObject response;
-    public String artist;
-    public String song;
+
+    public String current_artist;
+    public String current_song;
+
+    public String top_artist;
+    public String top_song;
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -50,8 +54,8 @@ public class SpotifyClient {
                         Log.i("VOLLEY", getResponse.toString());
                         try {
                             // get correct data that we want after getting response back
-                            artist = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name");
-                            song = getResponse.getJSONObject("item").getString("name");
+                            current_artist = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name");
+                            current_song = getResponse.getJSONObject("item").getString("name");
 
                             // call to interface after getting data
                             callback.onSuccess();
@@ -80,13 +84,41 @@ public class SpotifyClient {
 
     }
 
-}
 
-/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
- * 	  i.e getApiUrl("statuses/home_timeline.json");
- * 2. Define the parameters to pass to the request (query or body)
- *    i.e RequestParams params = new RequestParams("foo", "bar");
- * 3. Define the request method and make a call to the client
- *    i.e client.get(apiUrl, params, handler);
- *    i.e client.post(apiUrl, params, handler);
- */
+    public void getTopTrack(VolleyCallback callback){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject getResponse) {
+                        Log.i("VOLLEY", getResponse.toString());
+                        try {
+                            // get correct data that we want after getting response back
+                            top_artist = getResponse.getJSONArray("items").getJSONObject(0).getJSONArray("artists").getJSONObject(0).getString("name");
+                            top_song = getResponse.getJSONArray("items").getJSONObject(0).getString("name");
+
+                            // call to interface after getting data
+                            callback.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String auth = "Bearer " + ACCESS_TOKEN;
+                headers.put("Authorization: ", auth);
+                return headers;
+            }
+
+        };
+        queue.add(jsonObjectRequest);
+    }
+}
