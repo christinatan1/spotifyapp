@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.spotify.LyricsClient;
 import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
@@ -35,6 +36,14 @@ public class ComposeActivity extends AppCompatActivity {
     private String description_topSong;
     private String description_currentSong;
     private String descriptionSpotify;
+
+
+    public String client_current_artist;
+    public String client_current_song;
+
+    public String client_top_artist;
+    public String client_top_song;
+
     private boolean checkCurrent = false;
     private boolean checkTop = false;
     public static final String TAG = "ComposeActivity";
@@ -63,13 +72,17 @@ public class ComposeActivity extends AppCompatActivity {
         // get spotify info, fill it in in radio buttons
         setButtons();
 
+        // display lyrics depending on which song is chosen
+        onRadioButtonClicked(currentSong);
+        onRadioButtonClicked(topSong);
+
         // get access token after connecting in main activity
         // ACCESS_TOKEN = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         Log.d(TAG, ACCESS_TOKEN);
     }
 
 
-    // user - post on timeline
+    // user - post on timeline, runs once submit button is clicked
     private void submitListener() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +97,8 @@ public class ComposeActivity extends AppCompatActivity {
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
-                descriptionSpotify = onRadioButtonClicked(topSong);
-                descriptionSpotify = onRadioButtonClicked(currentSong);
+                descriptionSpotify = onRadioButtonSelected(topSong);
+                descriptionSpotify = onRadioButtonSelected(currentSong);
 
                 if (descriptionSpotify != null){
                     savePostSpotify(description, descriptionSpotify, currentUser);
@@ -96,7 +109,9 @@ public class ComposeActivity extends AppCompatActivity {
         });
     }
 
+    // method called once user navigates to compose, fills in text in buttons
     private void setButtons() {
+
         ConnectionParams connectionParams =
                 new ConnectionParams.Builder(CLIENT_ID)
                         .setRedirectUri(REDIRECT_URI)
@@ -113,6 +128,9 @@ public class ComposeActivity extends AppCompatActivity {
                         client.getCurrentTrack(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
+                                // get info from client, set it as a global variable in compose activity for other methods
+                                client_current_song = client.current_song;
+                                client_current_artist = client.current_artist;
                                 description_currentSong = "Current Song Playing: " + client.current_song + ", " + client.current_artist;
                                 currentSong.setText(description_currentSong);
                             }
@@ -121,6 +139,9 @@ public class ComposeActivity extends AppCompatActivity {
                         client.getTopTrack(new VolleyCallback(){
                             @Override
                             public void onSuccess(){
+                                // get info from client, set it as a global variable in compose activity for other methods
+                                client_top_artist = client.top_artist;
+                                client_top_song = client.top_song;
                                 description_topSong = "Top Song This Month: " + client.top_song + ", " + client.top_artist;
                                 topSong.setText(description_topSong);
                             }
@@ -134,7 +155,8 @@ public class ComposeActivity extends AppCompatActivity {
                 });
     }
 
-    public String onRadioButtonClicked(View view) {
+    // check which button was clicked once submit button is clicked
+    public String onRadioButtonSelected(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
@@ -152,7 +174,47 @@ public class ComposeActivity extends AppCompatActivity {
         return null;
     }
 
+    // displays lyrics if one of the songs (buttons) is clicked
+    public String onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.currentSong:
+                if (checked) {
+                    String description = getLyrics(client_current_artist, client_current_song);
+                    currentSong.setText(description_currentSong + description);
+                    Log.d("TAG", "HELLO");
+                    return description_currentSong;
+                }
+                break;
+            case R.id.topSong:
+                if (checked) {
+                    String description = getLyrics(client_top_artist, client_top_song);
+                    topSong.setText(description_topSong + description);
+                    Log.d("TAG", "HI");
+                    return description_topSong;
+                }
+                break;
+        }
+        return null;
+    }
+
+    private String getLyrics(String artist, String title){
+        LyricsClient client = new LyricsClient(ComposeActivity.this);
+
+        client.getLyrics(artist, title, new VolleyCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "Success!");
+            }
+        });
+        return client.lyrics;
+    }
+
     // user has choice whether or not to post with or without spotify info
+    // creates post w/o extra spotify info, regular post
     private void savePost(String description, ParseUser currentUser) {
         Post post = new Post();
         post.setDescription(description);
@@ -173,6 +235,7 @@ public class ComposeActivity extends AppCompatActivity {
         });
     }
 
+    // creates post w/ extra spotify info
     private void savePostSpotify(String description, String spotifyDescription, ParseUser currentUser) {
         Post post = new Post();
         post.setDescription(description);
