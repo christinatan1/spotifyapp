@@ -72,6 +72,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             public void onClick(View v) {
                 post.addLikes();
                 holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
+                holder.like.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                 post.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -86,14 +87,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             }
         });
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(context, DetailsActivity.class);
-//                i.putExtra(Post.class.getName(), Parcels.wrap(post));
-//                context.startActivity(i);
-//            }
-//        });
     }
 
 
@@ -121,6 +114,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivProfile;
         private TextView numLikes;
         private ImageButton like;
+        private TextView descriptionSpotify;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
@@ -132,6 +126,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfile = itemView.findViewById(R.id.ivProfile);
             numLikes = itemView.findViewById(R.id.numLikes);
             like = itemView.findViewById(R.id.like);
+            descriptionSpotify = itemView.findViewById(R.id.descriptionSpotify);
         }
 
         public void bind(Post post) {
@@ -143,6 +138,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 //            if (image != null) {
 //                Glide.with(context).load(image.getUrl()).into(ivImage);
 //            }
+            String spotifyDescription = post.getDescriptionSpotify();
+            if (spotifyDescription != null){
+                descriptionSpotify.setText(spotifyDescription);
+                descriptionSpotify.setVisibility(View.VISIBLE);;
+            }
             ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfile);

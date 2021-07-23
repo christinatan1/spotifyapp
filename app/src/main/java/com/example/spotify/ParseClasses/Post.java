@@ -31,7 +31,9 @@ public class Post extends ParseObject {
         put(KEY_DESCRIPTION, description);
     }
 
-    public void setDescriptionSpotify(String description){ put(KEY_DESCRIPTION_SPOTIFY, description); };
+    public void setDescriptionSpotify(String description){ put(KEY_DESCRIPTION_SPOTIFY, description); }
+
+    public String getDescriptionSpotify() { return getString(KEY_DESCRIPTION_SPOTIFY); }
 
     public ParseFile getImage(){
         return getParseFile(KEY_IMAGE);

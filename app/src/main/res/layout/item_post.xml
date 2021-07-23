@@ -29,20 +29,34 @@
         android:layout_marginBottom="8dp"
         tools:text="loving this song!!" />
 
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionSpotify"
+        android:layout_below="@+id/tvDescription"
+        android:text="Yellow, Coldplay"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:background="@color/button_default"
+        />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/like"
-        android:layout_below="@+id/tvDescription"
-
-        android:src="@drawable/like_selector"/>
+        android:layout_below="@+id/descriptionSpotify"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_favorite_border_24"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/like"
         android:id="@+id/numLikes"
-        android:layout_below="@id/tvDescription"
-        android:text="2 likes" />
+        android:layout_below="@id/descriptionSpotify"
+        android:text="0 likes" />
+
+
 
 </RelativeLayout>
