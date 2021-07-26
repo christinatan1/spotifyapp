@@ -3,7 +3,9 @@ package com.example.spotify;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -72,6 +74,28 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         holder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                post.addLikes();
+                holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
+                holder.like.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                post.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null){
+                            Log.e(TAG, "Error while saving", e);
+                        }
+                        else {
+                            Log.i(TAG, "Post save was successful!");
+                        }
+                    }
+                });
+            }
+        });
+
+        holder.tvDescription.setOnTouchListener(new OnDoubleTapListenerOne(holder.tvDescription.getContext()) {
+            @Override
+            public void onDoubleTap(MotionEvent e) {
+                Log.d("PostsAdapter", "success");
+//                Toast.makeText(MainActivity.this, "Double Tap", Toast.LENGTH_SHORT).show();
                 post.addLikes();
                 holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
                 holder.like.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
