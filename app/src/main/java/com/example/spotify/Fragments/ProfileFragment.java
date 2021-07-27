@@ -29,6 +29,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -213,6 +214,22 @@ public class ProfileFragment extends Fragment {
                             public void onSuccess() {
                                 currentSong.setText(client.current_song);
                                 currentSongArtist.setText(client.current_artist);
+
+                                ParseUser currentUser = ParseUser.getCurrentUser();
+                                String songDetail = client.current_song + "\n" + client.current_artist;
+                                currentUser.put("songPlaying", songDetail);
+
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null){
+                                            Log.e(TAG, "Error while saving", e);
+                                        }
+                                        else {
+                                            Log.i(TAG, "Song save was successful!");
+                                        }
+                                    }
+                                });
                             }
                         });
                     }

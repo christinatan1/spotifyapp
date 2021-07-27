@@ -16,6 +16,7 @@ public class User extends ParseObject {
     public static final String KEY_FOLLOWING = "following";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_CREATED_KEY = "createdAt";
+    public static final String KEY_SONG = "songPlaying";
 
 //    public void setUser(ParseUser currentUser){
 //        user = currentUser;
@@ -27,5 +28,7 @@ public class User extends ParseObject {
     public int getFollowers() { return getInt(KEY_FOLLOWERS); }
     public int getFollowing() { return getInt(KEY_FOLLOWING); }
     public ParseFile getProfile() { return getParseFile(KEY_PROFILE); }
+
+    public void setSongPlaying(String song){ put(KEY_SONG, song); }
 
 }
