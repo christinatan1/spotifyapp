@@ -10,7 +10,6 @@ import com.example.spotify.Fragments.DashboardFragment;
 import com.example.spotify.Fragments.HomeFragment;
 import com.example.spotify.Fragments.ProfileFragment;
 import com.example.spotify.R;
-import com.example.spotify.SpotifyClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -22,9 +21,6 @@ import androidx.fragment.app.FragmentManager;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
-
-import org.parceler.Parcel;
-import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity {
 

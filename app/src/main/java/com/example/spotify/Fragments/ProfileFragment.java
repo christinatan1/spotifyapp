@@ -18,18 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.RequestParams;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.spotify.Activities.LoginActivity;
 import com.example.spotify.ParseClasses.Post;
-import com.example.spotify.ParseClasses.User;
 import com.example.spotify.PostsAdapter;
 import com.example.spotify.R;
-import com.example.spotify.SpotifyClient;
-import com.example.spotify.VolleyCallback;
+import com.example.spotify.ExternalLibraries.SpotifyClient;
+import com.example.spotify.ExternalLibraries.VolleyCallback;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
@@ -38,13 +33,8 @@ import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
-import org.json.JSONException;
-import org.parceler.Parcel;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Headers;
 
 public class ProfileFragment extends Fragment {
     // spotify info

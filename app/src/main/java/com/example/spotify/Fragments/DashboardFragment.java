@@ -1,6 +1,7 @@
 package com.example.spotify.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,30 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spotify.CardsAdapter;
+import com.example.spotify.ParseClasses.Post;
+import com.example.spotify.ParseClasses.User;
+import com.example.spotify.PostsAdapter;
 import com.example.spotify.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
+    private RecyclerView rvCards;
+    public static final String TAG = "DashboardFragment";
+    protected CardsAdapter adapter;
+    protected List<ParseUser> allUsers;
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -44,12 +65,74 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_dashboard, container, false);
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        rvCards = view.findViewById(R.id.rvUserCards);
+
+        // initialize the array that will hold posts and create a PostsAdapter
+        allUsers = new ArrayList<>();
+        adapter = new CardsAdapter(getContext(), allUsers);
+
+        // set the adapter on the recycler view
+        rvCards.setAdapter(adapter);
+        // set the layout manager on the recycler view
+//        rvCards.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvCards.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+        queryPosts();
+    }
+
+    private void queryPosts() {
+//        // specify what type of data we want to query - Post.class
+//        ParseQuery<User> query = ParseQuery.getQuery(User.class);
+//        // include data referred by user key
+//        query.include(Post.KEY_USER);
+//        // limit query to latest 20 items
+//        query.setLimit(20);
+//        // order posts by creation date (newest first)
+//        query.addDescendingOrder(User.KEY_CREATED_KEY);
+//        // start an asynchronous call for posts
+//        query.findInBackground(new FindCallback<User>() {
+//            @Override
+//            public void done(List<User> users, ParseException e) {
+//                // check for errors
+//                if (e != null) {
+//                    Log.e(TAG, "Issue with getting users", e);
+//                    return;
+//                }
+//                for (User user : users) {
+//                    Log.i(TAG, "User: " + user.getUsername());
+//                }
+//
+//                // save received posts to list and notify adapter of new data, invalidates existing items and rebinds data
+//                allUsers.addAll(users);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            public void done(List<ParseUser> users, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting users", e);
+                    return;
+                }
+                for (ParseUser user : users) {
+                    Log.i(TAG, "User: " + user.getUsername());
+                }
+
+                // save received posts to list and notify adapter of new data, invalidates existing items and rebinds data
+                allUsers.addAll(users);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
 }
 

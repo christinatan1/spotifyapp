@@ -3,25 +3,21 @@ package com.example.spotify;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.spotify.Activities.ComposeActivity;
-import com.example.spotify.Activities.MainActivity;
+import com.example.spotify.ExternalLibraries.OnDoubleTapListenerOne;
 import com.example.spotify.ParseClasses.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -34,6 +30,7 @@ import org.parceler.Parcels;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+
     private Context context;
     private List<Post> posts;
     public static final String TAG = "PostsAdapter";
@@ -65,7 +62,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         holder.tvUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, UserProfiles.class);
+                Intent i = new Intent(context, UserProfilesActivity.class);
                 i.putExtra(Post.class.getName(), Parcels.wrap(post));
                 context.startActivity(i);
             }

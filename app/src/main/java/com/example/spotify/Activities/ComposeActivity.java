@@ -9,23 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.spotify.LyricsClient;
+import com.example.spotify.ExternalLibraries.LyricsClient;
 import com.example.spotify.ParseClasses.Post;
-import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
-import com.example.spotify.SpotifyClient;
-import com.example.spotify.VolleyCallback;
+import com.example.spotify.ExternalLibraries.SpotifyClient;
+import com.example.spotify.ExternalLibraries.VolleyCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-
-import org.parceler.Parcels;
 
 public class ComposeActivity extends AppCompatActivity {
 
@@ -73,8 +69,8 @@ public class ComposeActivity extends AppCompatActivity {
         setButtons();
 
         // display lyrics depending on which song is chosen
-        onRadioButtonClicked(currentSong);
-        onRadioButtonClicked(topSong);
+//        onRadioButtonClicked(currentSong);
+//        onRadioButtonClicked(topSong);
 
         // get access token after connecting in main activity
         // ACCESS_TOKEN = Parcels.unwrap(getIntent().getParcelableExtra("user"));

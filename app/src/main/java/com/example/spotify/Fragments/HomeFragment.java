@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
         // limit query to latest 20 items
         query.setLimit(20);
         // order posts by creation date (newest first)
-        query.addDescendingOrder(Post.KEY_CREATED_KEY);
+//        query.addDescendingOrder(Post.KEY_CREATED_KEY);
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
