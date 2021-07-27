@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.ParseClasses.User;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcel;
 import org.parceler.Parcels;
@@ -33,15 +34,14 @@ public class UserProfilesActivity extends AppCompatActivity {
         followingCount = findViewById(R.id.followingCount);
         ivProfilePic = findViewById(R.id.ivProfilePic);
 
-        Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
-        Log.d("UserProfiles", post.getUser().getUsername());
-        followerCount.setText(String.valueOf(post.getUser().getInt("followers")));
-        followingCount.setText(String.valueOf(post.getUser().getInt("following")));
-        tvUsername.setText(post.getUser().getUsername());
+        ParseUser user = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
+        Log.d("UserProfiles", user.getUsername());
+        followerCount.setText(String.valueOf(user.getInt("followers")));
+        followingCount.setText(String.valueOf(user.getInt("following")));
+        tvUsername.setText(user.getUsername());
 
         // set profile picture
-
-        ParseFile parseProfilePic = post.getUser().getParseFile("profilePicture");
+        ParseFile parseProfilePic = user.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(this).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }

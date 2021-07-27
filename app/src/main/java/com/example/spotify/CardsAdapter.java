@@ -98,6 +98,16 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
             }
+
+            tvUsername.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, UserProfilesActivity.class);
+                    i.putExtra(Post.class.getName(), Parcels.wrap(user));
+                    context.startActivity(i);
+                }
+            });
+
         }
     }
 }
