@@ -32,7 +32,9 @@ public class ComposeActivity extends AppCompatActivity {
     private String description_topSong;
     private String description_currentSong;
     private String descriptionSpotify;
-
+    private String songUrl_current;
+    private String songUrl_top;
+    private String songUrl;
 
     public String client_current_artist;
     public String client_current_song;
@@ -127,6 +129,7 @@ public class ComposeActivity extends AppCompatActivity {
                                 // get info from client, set it as a global variable in compose activity for other methods
                                 client_current_song = client.current_song;
                                 client_current_artist = client.current_artist;
+                                songUrl_current = client.current_song_url;
                                 description_currentSong = "Current Song Playing: " + client.current_song + ", " + client.current_artist;
                                 currentSong.setText(description_currentSong);
                             }
@@ -138,6 +141,7 @@ public class ComposeActivity extends AppCompatActivity {
                                 // get info from client, set it as a global variable in compose activity for other methods
                                 client_top_artist = client.top_artist;
                                 client_top_song = client.top_song;
+                                songUrl_top = client.top_song_url;
                                 description_topSong = "Top Song This Month: " + client.top_song + ", " + client.top_artist;
                                 topSong.setText(description_topSong);
                             }
@@ -159,12 +163,14 @@ public class ComposeActivity extends AppCompatActivity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.currentSong:
-                if (checked)
+                if (checked) {
                     return description_currentSong;
+                }
                     break;
             case R.id.topSong:
-                if (checked)
+                if (checked) {
                     return description_topSong;
+                }
                     break;
         }
         return null;
@@ -179,17 +185,17 @@ public class ComposeActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.currentSong:
                 if (checked) {
+                    songUrl = songUrl_current;
                     String description = getLyrics(client_current_artist, client_current_song);
                     currentSong.setText(description_currentSong + description);
-                    Log.d("TAG", "HELLO");
                     return description_currentSong;
                 }
                 break;
             case R.id.topSong:
                 if (checked) {
+                    songUrl = songUrl_top;
                     String description = getLyrics(client_top_artist, client_top_song);
                     topSong.setText(description_topSong + description);
-                    Log.d("TAG", "HI");
                     return description_topSong;
                 }
                 break;
@@ -215,6 +221,8 @@ public class ComposeActivity extends AppCompatActivity {
         Post post = new Post();
         post.setDescription(description);
         post.setUser(currentUser);
+
+//        post.setSongUrl();
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -237,6 +245,9 @@ public class ComposeActivity extends AppCompatActivity {
         post.setDescription(description);
         post.setDescriptionSpotify(spotifyDescription);
         post.setUser(currentUser);
+
+        post.setSongUrl(songUrl);
+
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

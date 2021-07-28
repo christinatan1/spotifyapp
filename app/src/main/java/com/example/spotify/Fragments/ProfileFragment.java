@@ -126,6 +126,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // connect to spotify and get token
         connect();
 
 //        connectBtn.setOnClickListener(new View.OnClickListener() {

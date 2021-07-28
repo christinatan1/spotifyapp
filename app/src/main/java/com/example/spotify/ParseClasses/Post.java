@@ -38,6 +38,8 @@ public class Post extends ParseObject {
 
     public String getSongUrl() { return getString(KEY_SONG_URL); }
 
+    public void setSongUrl(String url) { put(KEY_SONG_URL, url); }
+
     public ParseFile getImage(){
         return getParseFile(KEY_IMAGE);
     }

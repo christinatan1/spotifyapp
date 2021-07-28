@@ -27,9 +27,11 @@ public class SpotifyClient {
 
     public String current_artist;
     public String current_song;
+    public String current_song_url;
 
     public String top_artist;
     public String top_song;
+    public String top_song_url;
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -47,6 +49,7 @@ public class SpotifyClient {
                             // get correct data that we want after getting response back
                             current_artist = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name");
                             current_song = getResponse.getJSONObject("item").getString("name");
+                            current_song_url = getResponse.getJSONObject("item").getString("uri");
 
                             // call to interface after getting data
                             callback.onSuccess();
@@ -86,6 +89,7 @@ public class SpotifyClient {
                             // get correct data that we want after getting response back
                             top_artist = getResponse.getJSONArray("items").getJSONObject(0).getJSONArray("artists").getJSONObject(0).getString("name");
                             top_song = getResponse.getJSONArray("items").getJSONObject(0).getString("name");
+                            top_song_url = getResponse.getJSONArray("items").getJSONObject(0).getString("uri");
 
                             // call to interface after getting data
                             callback.onSuccess();
