@@ -2,6 +2,7 @@ package com.example.spotify.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +16,14 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.royrodriguez.transitionbutton.TransitionButton;
 
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
     private EditText etUsername;
     private EditText etPassword;
-    private Button btnLogin;
+    private TransitionButton btnLogin;
     private Button btnSignup;
 
     @Override
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 signupUser(username, password);
+
             }
         });
     }
@@ -71,8 +74,31 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 // go to main activity if user has signed in properly
-                goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
+//                goMainActivity();
+                // Start the loading animation when the user tap the button
+                btnLogin.startAnimation();
+
+                // Do your networking task or background work here.
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean isSuccessful = true;
+
+                        // choose a stop animation if your call was succesful or not
+                        if (isSuccessful) {
+                            btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                @Override
+                                public void onAnimationStopEnd() {
+                                    goMainActivity();
+                                }
+                            });
+                        } else {
+                            btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                        }
+                    }
+                }, 2000);
+//                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
             }
         });
 

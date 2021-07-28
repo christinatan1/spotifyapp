@@ -10,13 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spotify.CardsAdapter;
-import com.example.spotify.ParseClasses.Post;
-import com.example.spotify.ParseClasses.User;
-import com.example.spotify.PostsAdapter;
+import com.example.spotify.Adapters.CardsAdapter;
 import com.example.spotify.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;

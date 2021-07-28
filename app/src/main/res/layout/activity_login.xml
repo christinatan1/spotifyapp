@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="16dp"
     android:orientation="vertical"
     tools:context=".Activities.LoginActivity">
+
 
     <EditText
         android:id="@+id/etUsername"
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
+        android:layout_margin="15dp"
         android:hint="username"
         />
 
@@ -24,17 +25,18 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="password"
+        android:layout_margin="15dp"
         android:inputType="textPassword"
         android:layout_below="@+id/etUsername"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.royrodriguez.transitionbutton.TransitionButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="45dp"
-        android:background="@color/button_default"
+        android:layout_margin="15dp"
+        app:defaultColor="@color/button_default"
         android:textColor="@android:color/white"
         android:layout_below="@+id/etPassword"
         android:text="Login" />

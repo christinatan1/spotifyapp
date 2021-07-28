@@ -9,7 +9,7 @@ import com.parse.ParseUser;
 import org.parceler.Parcel;
 
 @ParseClassName("User")
-public class User extends ParseObject {
+public class User extends ParseUser {
 
     public static final String KEY_PROFILE = "profilePicture";
     public static final String KEY_FOLLOWERS = "followers";
@@ -22,9 +22,9 @@ public class User extends ParseObject {
 //        user = currentUser;
 //    }
 
-    public String getUsername(){
-        return getString(KEY_USERNAME);
-    }
+//    public String getUsername(){
+//        return getString(KEY_USERNAME);
+//    }
     public int getFollowers() { return getInt(KEY_FOLLOWERS); }
     public int getFollowing() { return getInt(KEY_FOLLOWING); }
     public ParseFile getProfile() { return getParseFile(KEY_PROFILE); }

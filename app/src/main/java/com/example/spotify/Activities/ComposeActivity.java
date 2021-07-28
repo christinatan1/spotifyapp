@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.spotify.ExternalLibraries.LyricsClient;
 import com.example.spotify.ParseClasses.Post;
+import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
 import com.example.spotify.ExternalLibraries.SpotifyClient;
 import com.example.spotify.ExternalLibraries.VolleyCallback;
@@ -93,7 +94,10 @@ public class ComposeActivity extends AppCompatActivity {
                     return;
                 }
 
-                ParseUser currentUser = ParseUser.getCurrentUser();
+
+                // TODO: use parse class + functions
+                //ParseUser currentUser = ParseUser.getCurrentUser();
+                User currentUser = (User) ParseUser.getCurrentUser();
 
                 descriptionSpotify = onRadioButtonSelected(topSong);
                 descriptionSpotify = onRadioButtonSelected(currentSong);

@@ -35,7 +35,10 @@ public class UserProfilesActivity extends AppCompatActivity {
         followingCount = findViewById(R.id.followingCount);
         ivProfilePic = findViewById(R.id.ivProfilePic);
 
+
+        // user parse class
         ParseUser user = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
+
         Log.d("UserProfiles", user.getUsername());
         followerCount.setText(String.valueOf(user.getInt("followers")));
         followingCount.setText(String.valueOf(user.getInt("following")));

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.spotify.ParseClasses.Post;
-import com.example.spotify.PostsAdapter;
+import com.example.spotify.Adapters.PostsAdapter;
 import com.example.spotify.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;

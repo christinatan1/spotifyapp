@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.spotify.Activities.LoginActivity;
 import com.example.spotify.ParseClasses.Post;
-import com.example.spotify.PostsAdapter;
+import com.example.spotify.Adapters.PostsAdapter;
 import com.example.spotify.R;
 import com.example.spotify.ExternalLibraries.SpotifyClient;
 import com.example.spotify.ExternalLibraries.VolleyCallback;
