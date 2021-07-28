@@ -2,15 +2,10 @@ package com.example.spotify;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,15 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.spotify.ExternalLibraries.OnDoubleTapListenerOne;
 import com.example.spotify.ParseClasses.Post;
-import com.example.spotify.ParseClasses.User;
-import com.example.spotify.R;
-import com.example.spotify.UserProfilesActivity;
-import com.parse.ParseException;
+import com.example.spotify.Activities.UserProfilesActivity;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 

@@ -1,4 +1,4 @@
-package com.example.spotify;
+package com.example.spotify.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.ParseClasses.User;
+import com.example.spotify.R;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 

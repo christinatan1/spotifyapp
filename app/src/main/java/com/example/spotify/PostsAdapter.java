@@ -17,11 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.spotify.Activities.UserProfilesActivity;
 import com.example.spotify.ExternalLibraries.OnDoubleTapListenerOne;
+import com.example.spotify.ExternalLibraries.SpotifyClient;
+import com.example.spotify.ExternalLibraries.VolleyCallback;
 import com.example.spotify.ParseClasses.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 //import org.parceler.Parcels;
 
@@ -30,6 +37,11 @@ import org.parceler.Parcels;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+
+    // spotify info
+    private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
+    private static final String REDIRECT_URI = "com.example.spotify://callback";
+    private SpotifyAppRemote mSpotifyAppRemote;
 
     private Context context;
     private List<Post> posts;
@@ -88,6 +100,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             }
         });
 
+        holder.ibPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // get song from parse
+                String song = post.getSongUrl();
+
+                // connect to spotify and play song
+                play(song);
+            }
+        });
+
+
         holder.tvDescription.setOnTouchListener(new OnDoubleTapListenerOne(holder.tvDescription.getContext()) {
             @Override
             public void onDoubleTap(MotionEvent e) {
@@ -145,7 +169,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
-//            ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
 //            tvTime = itemView.findViewById(R.id.tvTime);
             ivProfile = itemView.findViewById(R.id.ivProfile);
@@ -160,10 +183,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             numLikes.setText(String.valueOf(post.getLikes()) + " likes");
-//            ParseFile image = post.getImage();
-//            if (image != null) {
-//                Glide.with(context).load(image.getUrl()).into(ivImage);
-//            }
             String spotifyDescription = post.getDescriptionSpotify();
             if (spotifyDescription != null){
                 descriptionSpotify.setText(spotifyDescription);
@@ -175,5 +194,31 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfile);
             }
         }
+    }
+
+    private void play(String song) {
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
+
+        if (SpotifyAppRemote.isSpotifyInstalled(context)) {
+            Log.d("Posts Adapter", "Connected! Yay!");
+        }
+
+        SpotifyAppRemote.connect(context, connectionParams,
+                new Connector.ConnectionListener() {
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+                        Log.d(TAG, "Connected! Yay!");
+                        mSpotifyAppRemote.getPlayerApi().play(song);
+                    }
+
+                    public void onFailure(Throwable throwable) {
+                        // Something went wrong when attempting to connect, Handle errors here
+                        Log.e(TAG, throwable.getMessage(), throwable);
+                    }
+                });
     }
 }

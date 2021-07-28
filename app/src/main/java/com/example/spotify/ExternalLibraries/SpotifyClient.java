@@ -21,6 +21,7 @@ public class SpotifyClient {
 
     private static final String GET_CURRENT_TRACK_URL = "https://api.spotify.com/v1/me/player";
     private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
+    private static final String GET_TRACK = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
     private RequestQueue queue;
     public static String ACCESS_TOKEN;
 
@@ -76,6 +77,44 @@ public class SpotifyClient {
 
 
     public void getTopTrack(VolleyCallback callback){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject getResponse) {
+                        Log.i("VOLLEY", getResponse.toString());
+                        try {
+                            // get correct data that we want after getting response back
+                            top_artist = getResponse.getJSONArray("items").getJSONObject(0).getJSONArray("artists").getJSONObject(0).getString("name");
+                            top_song = getResponse.getJSONArray("items").getJSONObject(0).getString("name");
+
+                            // call to interface after getting data
+                            callback.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String auth = "Bearer " + ACCESS_TOKEN;
+                headers.put("Authorization: ", auth);
+                return headers;
+            }
+
+        };
+        queue.add(jsonObjectRequest);
+    }
+
+
+    public void getSongUrl(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
                 new Response.Listener<JSONObject>(){
                     @Override

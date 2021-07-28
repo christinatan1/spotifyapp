@@ -17,6 +17,7 @@ public class Post extends ParseObject {
 
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_DESCRIPTION_SPOTIFY = "descriptionSpotify";
+    public static final String KEY_SONG_URL = "songUrl";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_KEY = "createdAt";
@@ -34,6 +35,8 @@ public class Post extends ParseObject {
     public void setDescriptionSpotify(String description){ put(KEY_DESCRIPTION_SPOTIFY, description); }
 
     public String getDescriptionSpotify() { return getString(KEY_DESCRIPTION_SPOTIFY); }
+
+    public String getSongUrl() { return getString(KEY_SONG_URL); }
 
     public ParseFile getImage(){
         return getParseFile(KEY_IMAGE);
