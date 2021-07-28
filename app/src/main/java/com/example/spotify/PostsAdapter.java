@@ -139,6 +139,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageButton like;
         private TextView descriptionSpotify;
         private LinearLayout descriptionSpotifyLayout;
+        private ImageButton ibPlay;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
@@ -151,6 +152,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             numLikes = itemView.findViewById(R.id.numLikes);
             like = itemView.findViewById(R.id.like);
             descriptionSpotify = itemView.findViewById(R.id.descriptionSpotify);
+            ibPlay = itemView.findViewById(R.id.ibPlay);
         }
 
         public void bind(Post post) {
@@ -165,7 +167,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             String spotifyDescription = post.getDescriptionSpotify();
             if (spotifyDescription != null){
                 descriptionSpotify.setText(spotifyDescription);
-                descriptionSpotify.setVisibility(View.VISIBLE);;
+                descriptionSpotify.setVisibility(View.VISIBLE);
+                ibPlay.setVisibility(View.VISIBLE);
             }
             ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
             if (profilePhoto != null){

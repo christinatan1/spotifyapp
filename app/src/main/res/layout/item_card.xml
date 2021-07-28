@@ -42,6 +42,17 @@
             android:layout_marginTop="5dp"
             app:tint="@color/button_default" />
 
+
+        <TextView
+            android:id="@+id/playingSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/playIcon"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:textAlignment="center"
+            />
+
     </RelativeLayout>
 
 

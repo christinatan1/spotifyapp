@@ -82,12 +82,14 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvUsername;
         private ImageView ivProfilePicture;
+        private TextView playingSong;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
+            playingSong = itemView.findViewById(R.id.playingSong);
         }
 
         public void bind(ParseUser user) {
@@ -98,6 +100,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
             }
+
+            playingSong.setText(user.getString("songPlaying"));
 
             tvUsername.setOnClickListener(new View.OnClickListener() {
                 @Override

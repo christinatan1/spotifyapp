@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -31,10 +32,19 @@
         android:layout_marginBottom="8dp"
         tools:text="loving this song!!" />
 
-
+    <ImageButton
+        android:id="@+id/ibPlay"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_twotone_play_circle_filled_24"
+        android:layout_marginRight="5dp"
+        android:layout_toEndOf="@+id/descriptionSpotify"
+        android:layout_below="@+id/tvDescription"
+        app:tint="@color/black"
+        android:visibility="gone" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:id="@+id/descriptionSpotify"
         android:visibility="gone"
@@ -44,6 +54,7 @@
         android:textAlignment="center"
         android:background="@color/button_default"
         android:layout_margin="5dp"
+        android:layout_marginRight="30dp"
         />
 
     <ImageButton
