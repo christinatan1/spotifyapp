@@ -141,6 +141,7 @@
     <orderEntry type="library" name="Gradle: com.github.kaaes:spotify-web-api-android:0.4.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.volley:volley:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.royrodriguez:transitionbutton:0.2.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: pl.droidsonroids.gif:android-gif-drawable:1.2.22@aar" level="project" />
     <orderEntry type="module" module-name="Spotify.spotify-app-remote" />
   </component>
 </module>
