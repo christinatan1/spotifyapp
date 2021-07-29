@@ -2,6 +2,7 @@ package com.example.spotify.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +56,7 @@ public class ComposeActivity extends AppCompatActivity {
     // fix this when possible
     public static String ACCESS_TOKEN = MainActivity.ACCESS_TOKEN;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +99,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                 // TODO: use parse class + functions
                 //ParseUser currentUser = ParseUser.getCurrentUser();
-                User currentUser = (User) ParseUser.getCurrentUser();
+                ParseUser currentUser = ParseUser.getCurrentUser();
 
                 descriptionSpotify = onRadioButtonSelected(topSong);
                 descriptionSpotify = onRadioButtonSelected(currentSong);
@@ -226,6 +228,13 @@ public class ComposeActivity extends AppCompatActivity {
         post.setDescription(description);
         post.setUser(currentUser);
 
+        // progress bar
+        ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
+        pd.setTitle("Loading...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
+        pd.show();
+
 //        post.setSongUrl();
         post.saveInBackground(new SaveCallback() {
             @Override
@@ -234,6 +243,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Log.e(TAG, "Error while saving", e);
                     Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
+                pd.dismiss();
                 Log.i(TAG, "Post save was successful!");
                 etDescription.setText("");
 
@@ -249,8 +259,13 @@ public class ComposeActivity extends AppCompatActivity {
         post.setDescription(description);
         post.setDescriptionSpotify(spotifyDescription);
         post.setUser(currentUser);
-
         post.setSongUrl(songUrl);
+
+        ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
+        pd.setTitle("Loading...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
+        pd.show();
 
         post.saveInBackground(new SaveCallback() {
             @Override
@@ -264,6 +279,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                 Intent i = new Intent(ComposeActivity.this, MainActivity.class);
                 startActivity(i);
+                pd.dismiss();
             }
         });
     }

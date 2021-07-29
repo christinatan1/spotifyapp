@@ -1,5 +1,6 @@
 package com.example.spotify.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         AuthorizationRequest request = builder.build();
 
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
+
 
     }
 
