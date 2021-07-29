@@ -40,6 +40,7 @@ Allows people using the app to share their music with their follows and see musi
 
 * User can like and comment on other users' posts
 * User can recieve notifications when their post is like or commented on
+* User can play a song from a post directly in the app
 * User can see list of followers
 * User can see list of following
 * User can start a group music session and listen to music simultaneously with their friends
