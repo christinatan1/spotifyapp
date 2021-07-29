@@ -94,10 +94,10 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchTimelineAsync(int page) {
-        // Send the network request to fetch the updated data
+        // send the network request to fetch the updated data
         queryPosts(1);
         // CLEAR OUT old items before appending in the new ones
-        // Now we call setRefreshing(false) to signal refresh has finished
+        // call setRefreshing(false) to signal refresh has finished
         swipeContainer.setRefreshing(false);
     }
 

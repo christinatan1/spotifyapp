@@ -36,7 +36,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
         this.users = users;
     }
 
-
     @NonNull
     @Override
     // for every visible item, inflate (create) a view
@@ -52,7 +51,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull CardsAdapter.ViewHolder holder, int position) {
         // get the post at current position
         ParseUser user = users.get(position);
-        holder.bind((User) user);
+        holder.bind(user);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     }
 
     // Add a list of items
-    public void addAll(List<ParseUser> user) {
+    public void addAll(List<User> user) {
         users.addAll(user);
         notifyDataSetChanged();
     }
@@ -84,12 +83,12 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             playingSong = itemView.findViewById(R.id.playingSong);
         }
 
-        public void bind(User user) {
+        public void bind(ParseUser user) {
             // bind the post data to the view elements
             tvUsername.setText(user.getUsername());
 //            ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
             //ParseFile profilePhoto = user.getParseFile("profilePicture");
-            ParseFile profilePhoto = user.getProfile();
+            ParseFile profilePhoto = user.getParseFile("profilePicture");
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
             }
