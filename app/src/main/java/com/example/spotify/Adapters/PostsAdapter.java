@@ -43,6 +43,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     private Context context;
     private List<Post> posts;
+    private TextView songArtist;
+    private TextView songTitle;
     public static final String TAG = "PostsAdapter";
 
     // constructor
@@ -51,11 +53,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         this.posts = posts;
     }
 
-
     @NonNull
     @Override
     // for every visible item, inflate (create) a view
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        songArtist = parent.findViewById(R.id.songArtist);
+        songTitle = parent.findViewById(R.id.songTitle);
+
         // pass in a blueprint of the xml file
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
         // wrap a view into a view holder for easy access
@@ -108,6 +113,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                 // connect to spotify and play song
                 play(song);
+
+                // update song player details
+                Log.d(TAG, post.getSongTitle());
+
+                // TODO: set text for music player from post
+                // songTitle.setText(post.getSongTitle());
+                // songArtist.setText(post.getSongArtist());
             }
         });
 
@@ -147,13 +159,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    // Add a list of items
+    // add a list of items
     public void addAll(List<Post> post) {
         posts.addAll(post);
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
@@ -164,18 +176,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView descriptionSpotify;
         private LinearLayout descriptionSpotifyLayout;
         private ImageButton ibPlay;
+        private ImageButton ibPlayBottom;
+        private ImageButton ibPause;
+        private TextView songArtist;
+        private TextView songTitle;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDescription = itemView.findViewById(R.id.tvDescription);
-//            tvTime = itemView.findViewById(R.id.tvTime);
             ivProfile = itemView.findViewById(R.id.ivProfile);
             numLikes = itemView.findViewById(R.id.numLikes);
             like = itemView.findViewById(R.id.like);
             descriptionSpotify = itemView.findViewById(R.id.descriptionSpotify);
             ibPlay = itemView.findViewById(R.id.ibPlay);
+            ibPlayBottom = itemView.findViewById(R.id.ibPlayBottom);
+            ibPause = itemView.findViewById(R.id.ibPause);
+//            songArtist = itemView.findViewById(R.id.songArtist);
+//            songTitle = itemView.findViewById(R.id.songTitle);
         }
 
         public void bind(Post post) {
@@ -216,7 +235,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     }
 
                     public void onFailure(Throwable throwable) {
-                        // Something went wrong when attempting to connect, Handle errors here
+                        // something went wrong when attempting to connect, Handle errors here
                         Log.e(TAG, throwable.getMessage(), throwable);
                     }
                 });

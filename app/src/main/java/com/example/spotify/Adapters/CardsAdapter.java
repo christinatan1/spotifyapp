@@ -86,8 +86,10 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
         public void bind(ParseUser user) {
             // bind the post data to the view elements
             tvUsername.setText(user.getUsername());
-//            ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
-            //ParseFile profilePhoto = user.getParseFile("profilePicture");
+
+            // TODO: add custom user class
+            // ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
+            // ParseFile profilePhoto = user.getParseFile("profilePicture");
             ParseFile profilePhoto = user.getParseFile("profilePicture");
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);

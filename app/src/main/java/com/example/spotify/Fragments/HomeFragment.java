@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,9 @@ public class HomeFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
+    private TextView songArtist;
+    private TextView songTitle;
+    private ImageButton ibPlay;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -71,6 +76,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rvPosts = view.findViewById(R.id.rvPosts);
+        songArtist = view.findViewById(R.id.songArtist);
+        songTitle = view.findViewById(R.id.songTitle);
+        ibPlay = view.findViewById(R.id.ibPlay);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();

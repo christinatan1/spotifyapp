@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
 
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
-
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,23 +73,20 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Invalid Login Credentials", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // go to main activity if user has signed in properly
-//                goMainActivity();
-                // Start the loading animation when the user tap the button
+                // start the loading animation when the user tap the button
                 btnLogin.startAnimation();
 
-                // Do your networking task or background work here.
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         boolean isSuccessful = true;
-
                         // choose a stop animation if your call was succesful or not
                         if (isSuccessful) {
                             btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
                                 @Override
                                 public void onAnimationStopEnd() {
+                                    // go to main activity if user has signed in properly,
                                     goMainActivity();
                                 }
                             });
@@ -98,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 }, 2000);
-//                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
             }
         });
 

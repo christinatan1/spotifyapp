@@ -40,8 +40,8 @@ public class SpotifyClient {
 
     public void getCurrentTrack(VolleyCallback callback) {
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_CURRENT_TRACK_URL, null,
-                new Response.Listener<JSONObject>(){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, GET_CURRENT_TRACK_URL, null,
+                new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject getResponse) {
                         Log.i("VOLLEY", getResponse.toString());
@@ -63,8 +63,7 @@ public class SpotifyClient {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
                     }
-                })
-        {
+                }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
@@ -77,7 +76,6 @@ public class SpotifyClient {
         queue.add(jsonObjectRequest);
 
     }
-
 
     public void getTopTrack(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
@@ -117,8 +115,7 @@ public class SpotifyClient {
         queue.add(jsonObjectRequest);
     }
 
-
-    public void getSongUrl(VolleyCallback callback){
+    public void getAlbumCover(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
                 new Response.Listener<JSONObject>(){
                     @Override

@@ -55,7 +55,6 @@ public class ProfileFragment extends Fragment {
     protected List<Post> allPosts;
 
     private Button logoutBtn;
-    private Button connectBtn;
     private RecyclerView rvPosts;
     private TextView tvUsername;
     private ImageView ivProfilePic;
@@ -104,7 +103,6 @@ public class ProfileFragment extends Fragment {
 
         // connect to xml file
         logoutBtn = view.findViewById(R.id.logoutBtn);
-        connectBtn = view.findViewById(R.id.connectBtn);
         ivProfilePic = view.findViewById(R.id.ivProfilePic);
         rvPosts = view.findViewById(R.id.rvPosts);
         tvUsername = view.findViewById(R.id.tvUsername);
@@ -129,14 +127,6 @@ public class ProfileFragment extends Fragment {
         // connect to spotify and get token
         connect();
 
-//        connectBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // gets user data and changes the default text to current song info
-//                connect();
-//            }
-//        });
-
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
@@ -144,18 +134,20 @@ public class ProfileFragment extends Fragment {
 
         queryPosts(0);
 
-        // **figure out how to convert ParseUser to user class
+        // TODO: figure out how to convert ParseUser to user class
         ParseUser currentUser = ParseUser.getCurrentUser();
-//        ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
+
         ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(getContext()).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
-//        followerCount.setText(String.valueOf(currentUser.getFollowers()));
-//        followingCount.setText(String.valueOf(currentUser.getFollowing()));
-        followingCount.setText(String.valueOf(currentUser.getInt("following")));
+
+        // TODO: figure out how to convert ParseUser to user class
+        // followerCount.setText(String.valueOf(currentUser.getFollowers()));
+        // followingCount.setText(String.valueOf(currentUser.getFollowing()));
+        // followingCount.setText(String.valueOf(currentUser.getInt("following")));
 
     }
 
@@ -207,7 +199,6 @@ public class ProfileFragment extends Fragment {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
                         Log.d(TAG, "Connected! Yay!");
-//                        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
 
                         SpotifyClient client = new SpotifyClient(getContext(), ACCESS_TOKEN);
                         client.getCurrentTrack(new VolleyCallback() {
@@ -236,7 +227,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     public void onFailure(Throwable throwable) {
-                        // Something went wrong when attempting to connect, Handle errors here
+                        // something went wrong when attempting to connect, Handle errors here
                         Log.e(TAG, throwable.getMessage(), throwable);
                     }
                 });

@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         AuthorizationRequest.Builder builder =
                 new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
 
-//        builder.setScopes(new String[]{"streaming"});
         builder.setScopes(scope);
         AuthorizationRequest request = builder.build();
 
@@ -83,17 +82,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Menu icons are inflated just as they were with actionbar
+    // menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
+        // handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.miCompose:
                 composePost();

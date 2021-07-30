@@ -23,6 +23,8 @@ public class Post extends ParseObject {
     public static final String KEY_CREATED_KEY = "createdAt";
     public static final String KEY_PROFILE = "profilePicture";
     public static final String KEY_LIKES = "likes";
+    public static final String KEY_SONG_TITLE = "songTitle";
+    public static final String KEY_SONG_ARTIST = "songArtist";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -59,6 +61,14 @@ public class Post extends ParseObject {
     public int getLikes() {return getInt(KEY_LIKES); }
 
     public void addLikes(){ put(KEY_LIKES, getLikes()+1); }
+
+    public String getSongTitle() { return getString(KEY_SONG_TITLE); }
+
+    public void setSongTitle(String song) { put(KEY_SONG_TITLE, song); }
+
+    public String getSongArtist() { return getString(KEY_SONG_ARTIST); }
+
+    public void setSongArtist(String artist) { put(KEY_SONG_ARTIST, artist); }
 
     public static String calculateTimeAgo(Date createdAt) {
 

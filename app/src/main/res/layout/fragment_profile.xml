@@ -88,20 +88,10 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/connectBtn"
-        android:text="Connect to Spotify"
-        android:layout_below="@+id/userFollow"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutBtn"
         android:text="Logout"
         android:layout_below="@+id/userFollow"
         android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/connectBtn"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

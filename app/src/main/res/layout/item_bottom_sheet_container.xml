@@ -15,16 +15,49 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/songTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:gravity="left"
             android:padding="10dp"
             android:paddingBottom="2dp"
-            android:text="Play a song..."
+            android:text="Song Title"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/songArtist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="2dp"
+            android:text="Song Artist"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/ibPlayBottom"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="80dp"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            app:layout_constraintEnd_toEndOf="@id/frameLayout"
+            />
+
+        <ImageButton
+            android:id="@+id/ibPause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_baseline_pause_24" />
 
     </FrameLayout>
 
