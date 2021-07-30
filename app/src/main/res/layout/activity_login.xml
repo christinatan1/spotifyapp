@@ -41,7 +41,7 @@
         android:layout_below="@+id/etPassword"
         android:text="Login" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.royrodriguez.transitionbutton.TransitionButton
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private TransitionButton btnLogin;
-    private Button btnSignup;
+    private TransitionButton btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -97,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
                 }, 2000);
             }
         });
-
     }
 
     private void signupUser(String username, String password){
@@ -109,9 +108,29 @@ public class LoginActivity extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    // sign up succeeded, go to main activity
-                    goMainActivity();
-                    Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
+                    // start the loading animation when the user tap the button
+                    btnSignup.startAnimation();
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            boolean isSuccessful = true;
+                            // choose a stop animation if your call was succesful or not
+                            if (isSuccessful) {
+                                btnSignup.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                    @Override
+                                    public void onAnimationStopEnd() {
+                                        // go to main activity if user has signed in properly,
+                                        goMainActivity();
+                                    }
+                                });
+                            } else {
+                                btnSignup.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                            }
+                        }
+                    }, 2000);
+
                 } else {
                     // sign up didn't succeed. look at the ParseException to figure out what went wrong
                     Log.e(TAG, "Issue with signup", e);
