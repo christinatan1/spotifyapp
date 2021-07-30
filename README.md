@@ -23,6 +23,12 @@ Allows people using the app to share their music with their follows and see musi
 - **Habit:** Users will be able to check the app as often as they want to see what their friends are listening to. Users can also check the app when they want to listen and find new music. 
 - **Scope:** Simplest version would be where users can create a profile, post their music, and see other users' timelines. Could be tested with a very small group of users. V2 would allow more customization of users' profiles, and allow users to find new people easily.
 
+## Video Walkthrough
+
+Here's a walkthrough of the progress I've made so far:
+
+<img src='https://github.com/christinatan1/spotifyapp/blob/main/week%206.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 ## Product Spec
 
 ### 1. User Stories (Required and Optional)
