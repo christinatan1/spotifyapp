@@ -74,17 +74,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         Post post = posts.get(position);
         holder.bind(post);
 
+        // go to post author's profile if current user clicked on the post author's username
         holder.tvUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, UserProfilesActivity.class);
 
-                // TODO: wrap user
                 i.putExtra(Post.class.getName(), Parcels.wrap(post.getUser()));
                 context.startActivity(i);
             }
         });
 
+        // see if user liked a post, immediately update the number of likes
         holder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +106,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             }
         });
 
+        // if user pressed play on a post's song, play the song
         holder.ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,19 +118,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                 // update song player details
                 Log.d(TAG, post.getSongTitle());
-
-                // TODO: set text for music player from post
-                // songTitle.setText(post.getSongTitle());
-                // songArtist.setText(post.getSongArtist());
             }
         });
 
-
+        // if user double tapped a post, add a like and immediately update the number of likes
         holder.tvDescription.setOnTouchListener(new OnDoubleTapListenerOne(holder.tvDescription.getContext()) {
             @Override
             public void onDoubleTap(MotionEvent e) {
                 Log.d("PostsAdapter", "success");
-//                Toast.makeText(MainActivity.this, "Double Tap", Toast.LENGTH_SHORT).show();
                 post.addLikes();
                 holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
                 holder.like.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
@@ -147,7 +144,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         });
 
     }
-
 
     @Override
     public int getItemCount() {
@@ -193,8 +189,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ibPlay = itemView.findViewById(R.id.ibPlay);
             ibPlayBottom = itemView.findViewById(R.id.ibPlayBottom);
             ibPause = itemView.findViewById(R.id.ibPause);
-//            songArtist = itemView.findViewById(R.id.songArtist);
-//            songTitle = itemView.findViewById(R.id.songTitle);
         }
 
         public void bind(Post post) {

@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // connect to xml file
+        // // create references to views in xml file for easy access later
         logoutBtn = view.findViewById(R.id.logoutBtn);
         ivProfilePic = view.findViewById(R.id.ivProfilePic);
         rvPosts = view.findViewById(R.id.rvPosts);
@@ -134,21 +134,14 @@ public class ProfileFragment extends Fragment {
 
         queryPosts(0);
 
-        // TODO: figure out how to convert ParseUser to user class
+        // get user in session, get user info from parse (backend)
         ParseUser currentUser = ParseUser.getCurrentUser();
-
         ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(getContext()).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
-
-        // TODO: figure out how to convert ParseUser to user class
-        // followerCount.setText(String.valueOf(currentUser.getFollowers()));
-        // followingCount.setText(String.valueOf(currentUser.getFollowing()));
-        // followingCount.setText(String.valueOf(currentUser.getInt("following")));
-
     }
 
     protected void queryPosts(int i) {
@@ -170,9 +163,7 @@ public class ProfileFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
+                // clear adapter when user swipes up to refresh
                 if (i == 1) {
                     adapter.clear();
                 }
@@ -190,8 +181,9 @@ public class ProfileFragment extends Fragment {
                         .showAuthView(true)
                         .build();
 
+        // check if spotify is installed on the device (required)
         if (SpotifyAppRemote.isSpotifyInstalled(getContext())) {
-            Log.d("Profile Fragment", "Connected! Yay!");
+            Log.d(TAG, "Connected! Yay!");
         }
 
         SpotifyAppRemote.connect(getContext(), connectionParams,
@@ -204,9 +196,11 @@ public class ProfileFragment extends Fragment {
                         client.getCurrentTrack(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
+                                // client gets spotify user data, set spotify info to profile
                                 currentSong.setText(client.current_song);
                                 currentSongArtist.setText(client.current_artist);
 
+                                // add details and save to parse
                                 ParseUser currentUser = ParseUser.getCurrentUser();
                                 String songDetail = client.current_song + "\n" + client.current_artist;
                                 currentUser.put("songPlaying", songDetail);

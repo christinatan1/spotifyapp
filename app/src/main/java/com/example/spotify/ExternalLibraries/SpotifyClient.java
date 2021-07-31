@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpotifyClient {
-
     private static final String GET_CURRENT_TRACK_URL = "https://api.spotify.com/v1/me/player";
     private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
     private static final String GET_TRACK = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
@@ -38,8 +37,8 @@ public class SpotifyClient {
         ACCESS_TOKEN = access_token;
     }
 
+    // gets current playing song, will return null strings if user is not playing a song
     public void getCurrentTrack(VolleyCallback callback) {
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, GET_CURRENT_TRACK_URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -71,12 +70,11 @@ public class SpotifyClient {
                 headers.put("Authorization: ", auth);
                 return headers;
             }
-
         };
         queue.add(jsonObjectRequest);
-
     }
 
+    // gets top song of the month, time range is "short term" in spotify url, which is roughly a month
     public void getTopTrack(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
                 new Response.Listener<JSONObject>(){
@@ -115,16 +113,16 @@ public class SpotifyClient {
         queue.add(jsonObjectRequest);
     }
 
+    // gets url of picture album cover, not implemented yet
     public void getAlbumCover(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject getResponse) {
-                        Log.i("VOLLEY", getResponse.toString());
                         try {
                             // get correct data that we want after getting response back
-                            top_artist = getResponse.getJSONArray("items").getJSONObject(0).getJSONArray("artists").getJSONObject(0).getString("name");
-                            top_song = getResponse.getJSONArray("items").getJSONObject(0).getString("name");
+                            Log.i("VOLLEY", getResponse.toString());
+                            Log.i("VOLLEY", getResponse.getString("item"));
 
                             // call to interface after getting data
                             callback.onSuccess();

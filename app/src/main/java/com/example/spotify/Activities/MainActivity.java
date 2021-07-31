@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // sets up toolbar at top with button to compose activity
          Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
 
@@ -71,28 +72,24 @@ public class MainActivity extends AppCompatActivity {
         });
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
 
+        // spotify authorization - ask user for login information and ask specific permissions (scopes)
         AuthorizationRequest.Builder builder =
                 new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
-
         builder.setScopes(scope);
         AuthorizationRequest request = builder.build();
-
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
-
-
     }
 
-    // menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // inflate the menu; this adds items to the action bar if it is present.
+        // inflate the menu; this adds items to the tool bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // handle presses on the action bar items
+        // see what user presses on the toolbar items
         switch (item.getItemId()) {
             case R.id.miCompose:
                 composePost();
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void composePost() {
         Intent i = new Intent(MainActivity.this, ComposeActivity.class);
 
-        // send access token to compose activity
+        // send access token to compose activity, which gets spotify user data
         i.putExtra("user", ACCESS_TOKEN);
         startActivity(i);
     }
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // auth flow returned an error
                 case ERROR:
-                    // handle error response
+                    Log.d("MainActivity", "Token unsuccessful");
                     break;
 
                 // most likely auth flow was cancelled

@@ -75,17 +75,18 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // create references to views for easy access later
         rvPosts = view.findViewById(R.id.rvPosts);
         songArtist = view.findViewById(R.id.songArtist);
         songTitle = view.findViewById(R.id.songTitle);
         ibPlay = view.findViewById(R.id.ibPlay);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
 
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        // setup refresh listener which triggers new data loading
+        // setup refresh listener when user swipes up to refresh, which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -128,10 +129,8 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
                 if (i == 1){
+                    // clearn adapter when user swipes up to refresh
                     adapter.clear();
                 }
                 // save received posts to list and notify adapter of new data, invalidates existing items and rebinds data

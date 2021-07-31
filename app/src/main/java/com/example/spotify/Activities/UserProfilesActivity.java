@@ -30,6 +30,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profiles);
 
+        // create references to views for easy access later
         tvUsername = findViewById(R.id.tvUsername);
         followerCount = findViewById(R.id.followerCount);
         followingCount = findViewById(R.id.followingCount);
@@ -38,12 +39,12 @@ public class UserProfilesActivity extends AppCompatActivity {
         // user parse class
         ParseUser user = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
 
-        Log.d("UserProfiles", user.getUsername());
+        // get backend info
         followerCount.setText(String.valueOf(user.getInt("followers")));
         followingCount.setText(String.valueOf(user.getInt("following")));
         tvUsername.setText(user.getUsername());
 
-        // set profile picture
+        // get profile picture, if it exists
         ParseFile parseProfilePic = user.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(this).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);

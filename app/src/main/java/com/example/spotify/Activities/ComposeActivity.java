@@ -55,7 +55,6 @@ public class ComposeActivity extends AppCompatActivity {
     private static final String REDIRECT_URI = "com.example.spotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
 
-    // fix this when possible
     public static String ACCESS_TOKEN = MainActivity.ACCESS_TOKEN;
 
 
@@ -83,12 +82,11 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
 
-    // user - post on timeline, runs once submit button is clicked
+    // user post on timeline, runs once submit button is clicked
     private void submitListener() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String description = etDescription.getText().toString();
                 if (description.isEmpty()) {
                     Toast.makeText(ComposeActivity.this, "Description cannot be empty",
@@ -96,14 +94,13 @@ public class ComposeActivity extends AppCompatActivity {
                     return;
                 }
 
-
-                // TODO: use parse class + functions
-                //ParseUser currentUser = ParseUser.getCurrentUser();
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
+                // set description depending on which button is selected
                 descriptionSpotify = onRadioButtonSelected(topSong);
                 descriptionSpotify = onRadioButtonSelected(currentSong);
 
+                // check if it is a regular post without spotify info
                 if (descriptionSpotify != null){
                     savePostSpotify(description, descriptionSpotify, currentUser, songArtist, songTitle);
                 } else {
@@ -122,6 +119,7 @@ public class ComposeActivity extends AppCompatActivity {
                         .showAuthView(true)
                         .build();
 
+        // connect to spotify and set text on buttons once connected
         SpotifyAppRemote.connect(ComposeActivity.this, connectionParams,
                 new Connector.ConnectionListener() {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
@@ -226,7 +224,7 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     // user has choice whether or not to post with or without spotify info
-    // creates post w/o extra spotify info, regular post
+    // this method creates post w/o extra spotify info; regular post
     private void savePost(String description, ParseUser currentUser, String artist, String song) {
         Post post = new Post();
         post.setDescription(description);
@@ -240,8 +238,6 @@ public class ComposeActivity extends AppCompatActivity {
         pd.setMessage("Please wait.");
         pd.setCancelable(false);
         pd.show();
-
-//        post.setSongUrl();
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

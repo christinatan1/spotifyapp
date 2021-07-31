@@ -5,6 +5,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+// custom class that waits for double tap from user
 public class OnDoubleTapListenerOne implements View.OnTouchListener {
 
     private GestureDetector gestureDetector;
@@ -32,6 +33,6 @@ public class OnDoubleTapListenerOne implements View.OnTouchListener {
     }
 
     public void onDoubleTap(MotionEvent e) {
-        // To be overridden when implementing listener
+        // to be overridden when implementing listener
     }
 }

@@ -19,17 +19,10 @@ public final class User extends ParseUser {
     public static final String KEY_SONG = "songPlaying";
     public static final String KEY_USER = "user";
 
-//    public void setUser(ParseUser currentUser){
-//        user = currentUser;
-//    }
-
-//    public String getUsername(){
-//        return getString(KEY_USERNAME);
-//    }
     public int getFollowers() { return getInt(KEY_FOLLOWERS); }
     public int getFollowing() { return getInt(KEY_FOLLOWING); }
     public ParseFile getProfile() { return getParseFile(KEY_PROFILE); }
-
     public void setSongPlaying(String song){ put(KEY_SONG, song); }
+    public String getSongPlaying(){ return getString(KEY_SONG); }
 
 }

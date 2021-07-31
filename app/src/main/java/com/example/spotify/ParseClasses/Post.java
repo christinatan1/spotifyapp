@@ -29,23 +29,19 @@ public class Post extends ParseObject {
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
     }
-
     public void setDescription(String description){
         put(KEY_DESCRIPTION, description);
     }
 
     public void setDescriptionSpotify(String description){ put(KEY_DESCRIPTION_SPOTIFY, description); }
-
     public String getDescriptionSpotify() { return getString(KEY_DESCRIPTION_SPOTIFY); }
 
     public String getSongUrl() { return getString(KEY_SONG_URL); }
-
     public void setSongUrl(String url) { put(KEY_SONG_URL, url); }
 
     public ParseFile getImage(){
         return getParseFile(KEY_IMAGE);
     }
-
     public void setImage(ParseFile parseFile){
         put(KEY_IMAGE, parseFile);
     }
@@ -53,23 +49,20 @@ public class Post extends ParseObject {
     public ParseUser getUser(){
         return getParseUser(KEY_USER);
     }
-
     public void setUser(ParseUser user){ put(KEY_USER, user); }
 
     public ParseFile getProfile() { return getParseFile(KEY_PROFILE); }
 
     public int getLikes() {return getInt(KEY_LIKES); }
-
     public void addLikes(){ put(KEY_LIKES, getLikes()+1); }
 
     public String getSongTitle() { return getString(KEY_SONG_TITLE); }
-
     public void setSongTitle(String song) { put(KEY_SONG_TITLE, song); }
 
     public String getSongArtist() { return getString(KEY_SONG_ARTIST); }
-
     public void setSongArtist(String artist) { put(KEY_SONG_ARTIST, artist); }
 
+    // calculate time since user has posted/updated something
     public static String calculateTimeAgo(Date createdAt) {
 
         int SECOND_MILLIS = 1000;

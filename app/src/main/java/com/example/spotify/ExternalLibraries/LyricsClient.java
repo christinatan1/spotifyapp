@@ -25,6 +25,7 @@ public class LyricsClient {
     }
 
     public void getLyrics(String artist, String title, VolleyCallback callback) {
+        // remove spaces from the artist and title for get lyrics url
         artist = artist.replaceAll("\\s", "");
         title = title.replaceAll("\\s", "");
         String GET_URL = GET_LYRICS + artist + "/" + title;

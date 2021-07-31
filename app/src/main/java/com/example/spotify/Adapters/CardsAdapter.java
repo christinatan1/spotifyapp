@@ -64,7 +64,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    // Add a list of items
+    // add a list of items
     public void addAll(List<User> user) {
         users.addAll(user);
         notifyDataSetChanged();
@@ -87,9 +87,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             // bind the post data to the view elements
             tvUsername.setText(user.getUsername());
 
-            // TODO: add custom user class
-            // ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
-            // ParseFile profilePhoto = user.getParseFile("profilePicture");
             ParseFile profilePhoto = user.getParseFile("profilePicture");
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
@@ -97,6 +94,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
 
             playingSong.setText(user.getString("songPlaying"));
 
+            // go to post author's profile if current user clicked on the post author's username
             tvUsername.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         // connect to xml layout
         setContentView(R.layout.activity_login);
 
+        // if user is already logged in on their device, skip login
         if (ParseUser.getCurrentUser() != null){
             goMainActivity();
         }
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
 
-
+        // checks with backend to see if user exists once user clicks "submit"
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // creates user in backend once user clicks "signup"
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,34 +69,36 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                // if e is null, login succeeded
+                // checks if user exists in backend
                 if (e != null){
                     Log.e(TAG, "Issue with login", e);
                     Toast.makeText(LoginActivity.this, "Invalid Login Credentials", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                // start the loading animation when the user tap the button
-                btnLogin.startAnimation();
+                } else {
+                    // start the loading animation when the user tap the button
+                    btnLogin.startAnimation();
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean isSuccessful = true;
-                        // choose a stop animation if your call was succesful or not
-                        if (isSuccessful) {
-                            btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
-                                @Override
-                                public void onAnimationStopEnd() {
-                                    // go to main activity if user has signed in properly,
-                                    goMainActivity();
-                                }
-                            });
-                        } else {
-                            btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            boolean isSuccessful = true;
+                            // choose a stop animation if the call was succesful or not
+                            if (isSuccessful) {
+                                btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                    @Override
+                                    public void onAnimationStopEnd() {
+                                        // go to main activity if user has signed in properly,
+                                        goMainActivity();
+                                    }
+                                });
+                            } else {
+                                // button shakes if call was unsuccessful
+                                btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                            }
                         }
-                    }
-                }, 2000);
+                    }, 2000);
+                }
             }
         });
     }
@@ -107,7 +111,12 @@ public class LoginActivity extends AppCompatActivity {
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
-                if (e == null) {
+                if (e != null) {
+                    // sign up didn't succeed (user does not exist). look at the ParseException to figure out what went wrong
+                    Log.e(TAG, "Issue with signup", e);
+                    Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+
+                } else {
                     // start the loading animation when the user tap the button
                     btnSignup.startAnimation();
 
@@ -130,11 +139,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     }, 2000);
-
-                } else {
-                    // sign up didn't succeed. look at the ParseException to figure out what went wrong
-                    Log.e(TAG, "Issue with signup", e);
-                    Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                 }
             }
         });
