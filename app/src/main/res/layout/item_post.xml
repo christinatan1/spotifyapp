@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp"
     android:layout_marginBottom="15dp">
+
 
     <ImageView
         android:id="@+id/ivProfile"
@@ -24,54 +26,74 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="christina" />
 
-    <TextView
-        android:id="@+id/tvDescription"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvPost"
+        android:layout_below="@+id/tvUsername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProfile"
-        android:layout_marginBottom="8dp"
-        tools:text="loving this song!!" />
+        android:layout_height="match_parent"
+        app:cardCornerRadius="30dp"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="8dp"
+                tools:text="loving this song!!" />
+
+            <ImageButton
+                android:id="@+id/ibPlay"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tvDescription"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/descriptionSpotify"
+                android:src="@drawable/ic_twotone_play_circle_filled_24"
+                android:visibility="gone"
+                app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/descriptionSpotify"
+            android:layout_width="310dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDescription"
+            android:layout_margin="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/button_default"
+            android:padding="10dp"
+            android:text="Yellow, Coldplay"
+            android:textAlignment="center"
+            android:visibility="gone" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
     <ImageButton
-        android:id="@+id/ibPlay"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_twotone_play_circle_filled_24"
-        android:layout_marginRight="5dp"
-        android:layout_toEndOf="@+id/descriptionSpotify"
-        android:layout_below="@+id/tvDescription"
-        app:tint="@color/black"
-        android:visibility="gone" />
-
-    <TextView
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/descriptionSpotify"
-        android:visibility="gone"
-        android:layout_below="@+id/tvDescription"
-        android:text="Yellow, Coldplay"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:background="@color/button_default"
-        android:layout_margin="5dp"
-        android:layout_marginRight="30dp"
-        />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/like"
-        android:layout_below="@+id/descriptionSpotify"
-        android:background="@null"
-        android:src="@drawable/ic_baseline_favorite_border_24"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/like"
+        android:layout_below="@+id/cvPost"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_favorite_border_24" />
+
+    <TextView
         android:id="@+id/numLikes"
-        android:layout_below="@id/descriptionSpotify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cvPost"
+        android:layout_toRightOf="@+id/like"
         android:text="0 likes" />
 
-
 </RelativeLayout>
+
+

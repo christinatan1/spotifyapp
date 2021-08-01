@@ -27,14 +27,14 @@ public class LoginActivity extends AppCompatActivity {
     private TransitionButton btnSignup;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // connect to xml layout
         setContentView(R.layout.activity_login);
 
         // if user is already logged in on their device, skip login
-        if (ParseUser.getCurrentUser() != null){
+        if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
 
@@ -65,12 +65,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String username, String password){
+    private void loginUser(String username, String password) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 // checks if user exists in backend
-                if (e != null){
+                if (e != null) {
                     Log.e(TAG, "Issue with login", e);
                     Toast.makeText(LoginActivity.this, "Invalid Login Credentials", Toast.LENGTH_SHORT).show();
                     return;
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void signupUser(String username, String password){
+    private void signupUser(String username, String password) {
         // set up new user details
         ParseUser user = new ParseUser();
         user.setUsername(username);

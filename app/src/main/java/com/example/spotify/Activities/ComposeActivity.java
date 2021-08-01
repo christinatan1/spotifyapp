@@ -46,8 +46,8 @@ public class ComposeActivity extends AppCompatActivity {
     public String client_top_artist;
     public String client_top_song;
 
-    private boolean checkCurrent = false;
-    private boolean checkTop = false;
+    private final boolean checkCurrent = false;
+    private final boolean checkTop = false;
     public static final String TAG = "ComposeActivity";
 
     // spotify info
@@ -74,7 +74,8 @@ public class ComposeActivity extends AppCompatActivity {
         // get spotify info, fill it in in radio buttons
         setButtons();
 
-        // display lyrics depending on which song is chosen; on hold since lyrics api is under maintenance
+        // display lyrics depending on which song is chosen
+        // on hold since lyrics api is under maintenance
         // onRadioButtonClicked(currentSong);
         // onRadioButtonClicked(topSong);
 
@@ -101,7 +102,7 @@ public class ComposeActivity extends AppCompatActivity {
                 descriptionSpotify = onRadioButtonSelected(currentSong);
 
                 // check if it is a regular post without spotify info
-                if (descriptionSpotify != null){
+                if (descriptionSpotify != null) {
                     savePostSpotify(description, descriptionSpotify, currentUser, songArtist, songTitle);
                 } else {
                     savePost(description, currentUser, songArtist, songTitle);
@@ -139,9 +140,9 @@ public class ComposeActivity extends AppCompatActivity {
                             }
                         });
 
-                        client.getTopTrack(new VolleyCallback(){
+                        client.getTopTrack(new VolleyCallback() {
                             @Override
-                            public void onSuccess(){
+                            public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
                                 client_top_artist = client.top_artist;
                                 client_top_song = client.top_song;
@@ -165,21 +166,21 @@ public class ComposeActivity extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.currentSong:
                 if (checked) {
                     songArtist = client_current_artist;
                     songTitle = client_current_song;
                     return description_currentSong;
                 }
-                    break;
+                break;
             case R.id.topSong:
                 if (checked) {
                     songArtist = client_top_artist;
                     songTitle = client_top_song;
                     return description_topSong;
                 }
-                    break;
+                break;
         }
         return null;
     }
@@ -190,7 +191,7 @@ public class ComposeActivity extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.currentSong:
                 if (checked) {
                     songUrl = songUrl_current;
@@ -211,7 +212,7 @@ public class ComposeActivity extends AppCompatActivity {
         return null;
     }
 
-    private String getLyrics(String artist, String title){
+    private String getLyrics(String artist, String title) {
         LyricsClient client = new LyricsClient(ComposeActivity.this);
 
         client.getLyrics(artist, title, new VolleyCallback() {
@@ -241,7 +242,7 @@ public class ComposeActivity extends AppCompatActivity {
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e != null){
+                if (e != null) {
                     Log.e(TAG, "Error while saving", e);
                     Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
@@ -274,7 +275,7 @@ public class ComposeActivity extends AppCompatActivity {
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e != null){
+                if (e != null) {
                     Log.e(TAG, "Error while saving", e);
                     Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
