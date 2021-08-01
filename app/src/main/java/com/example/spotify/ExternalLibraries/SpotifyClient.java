@@ -24,13 +24,18 @@ public class SpotifyClient {
     private RequestQueue queue;
     public static String ACCESS_TOKEN;
 
-    public String current_artist;
-    public String current_song;
-    public String current_song_url;
+    public String[] current_song = new String[10];
+    // 0: song title, 1: artist, 2: song url, 3: album cover
+//    public String current_artist;
+//    public String current_song;
+//    public String current_song_url;
+//    public String current_album_cover;
 
-    public String top_artist;
-    public String top_song;
-    public String top_song_url;
+    public String[] top_song = new String[10];
+//    public String top_artist;
+//    public String top_song;
+//    public String top_song_url;
+//    public String top_album_cover;
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -46,9 +51,10 @@ public class SpotifyClient {
                         Log.i("VOLLEY", getResponse.toString());
                         try {
                             // get correct data that we want after getting response back
-                            current_artist = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name");
-                            current_song = getResponse.getJSONObject("item").getString("name");
-                            current_song_url = getResponse.getJSONObject("item").getString("uri");
+                            current_song[0] = getResponse.getJSONObject("item").getString("name");
+                            current_song[1] = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("artists").getJSONObject(0).getString("name");
+                            current_song[2] = getResponse.getJSONObject("item").getString("uri");
+                            current_song[3] = getResponse.getJSONObject("item").getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
 
                             // call to interface after getting data
                             callback.onSuccess();
@@ -83,9 +89,10 @@ public class SpotifyClient {
                         Log.i("VOLLEY", getResponse.toString());
                         try {
                             // get correct data that we want after getting response back
-                            top_artist = getResponse.getJSONArray("items").getJSONObject(0).getJSONArray("artists").getJSONObject(0).getString("name");
-                            top_song = getResponse.getJSONArray("items").getJSONObject(0).getString("name");
-                            top_song_url = getResponse.getJSONArray("items").getJSONObject(0).getString("uri");
+                            top_song[0] = getResponse.getJSONArray("items").getJSONObject(0).getString("name");
+                            top_song[1] = getResponse.getJSONArray("items").getJSONObject(0).getJSONArray("artists").getJSONObject(0).getString("name");
+                            top_song[2] = getResponse.getJSONArray("items").getJSONObject(0).getString("uri");
+                            top_song[3] = getResponse.getJSONArray("items").getJSONObject(0).getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
 
                             // call to interface after getting data
                             callback.onSuccess();

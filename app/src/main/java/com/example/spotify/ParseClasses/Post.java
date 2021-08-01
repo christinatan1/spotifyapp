@@ -25,6 +25,7 @@ public class Post extends ParseObject {
     public static final String KEY_LIKES = "likes";
     public static final String KEY_SONG_TITLE = "songTitle";
     public static final String KEY_SONG_ARTIST = "songArtist";
+    public static final String KEY_COVER = "albumCover";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -52,6 +53,9 @@ public class Post extends ParseObject {
     public void setUser(ParseUser user){ put(KEY_USER, user); }
 
     public ParseFile getProfile() { return getParseFile(KEY_PROFILE); }
+
+    public String getSongCover() { return getString(KEY_COVER); }
+    public void setSongCover(String url) { put(KEY_COVER, url); }
 
     public int getLikes() {return getInt(KEY_LIKES); }
     public void addLikes(){ put(KEY_LIKES, getLikes()+1); }

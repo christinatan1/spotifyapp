@@ -197,12 +197,12 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onSuccess() {
                                 // client gets spotify user data, set spotify info to profile
-                                currentSong.setText(client.current_song);
-                                currentSongArtist.setText(client.current_artist);
+                                currentSong.setText(client.current_song[0]);
+                                currentSongArtist.setText(client.current_song[1]);
 
                                 // add details and save to parse
                                 ParseUser currentUser = ParseUser.getCurrentUser();
-                                String songDetail = client.current_song + "\n" + client.current_artist;
+                                String songDetail = client.current_song[0] + "\n" + client.current_song[1];
                                 currentUser.put("songPlaying", songDetail);
 
                                 currentUser.saveInBackground(new SaveCallback() {

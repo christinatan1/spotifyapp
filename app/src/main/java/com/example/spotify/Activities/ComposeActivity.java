@@ -36,15 +36,20 @@ public class ComposeActivity extends AppCompatActivity {
     private String descriptionSpotify;
     private String songArtist;
     private String songTitle;
-    private String songUrl_current;
-    private String songUrl_top;
+//    private String songUrl_current;
+//    private String songUrl_top;
     private String songUrl;
 
-    public String client_current_artist;
-    public String client_current_song;
+//    public String client_current_artist;
+//    public String client_current_song;
+//    public String client_current_album_cover;
+//
+//    public String client_top_artist;
+//    public String client_top_song;
+//    public String client_top_album_cover;
 
-    public String client_top_artist;
-    public String client_top_song;
+    // 0: song title, 1: artist, 2: song url, 3: album cover
+    public String[] submitSong = new String[10];
 
     private final boolean checkCurrent = false;
     private final boolean checkTop = false;
@@ -56,12 +61,14 @@ public class ComposeActivity extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
 
     public static String ACCESS_TOKEN = MainActivity.ACCESS_TOKEN;
-
+    SpotifyClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+
+        client = new SpotifyClient(ComposeActivity.this, ACCESS_TOKEN);
 
         etDescription = findViewById(R.id.etDescription);
         btnSubmit = findViewById(R.id.btnSubmit);
@@ -98,15 +105,40 @@ public class ComposeActivity extends AppCompatActivity {
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
                 // set description depending on which button is selected
-                descriptionSpotify = onRadioButtonSelected(topSong);
-                descriptionSpotify = onRadioButtonSelected(currentSong);
+//                descriptionSpotify = onRadioButtonSelected(topSong);
+//                descriptionSpotify = onRadioButtonSelected(currentSong);
+
+                if (onRadioButtonSelected(topSong) == "current song" || onRadioButtonSelected(currentSong) == "current song") {
+//                    submitSong[0] = client.current_song[0]; // song title
+//                    submitSong[1] = client.current_song[1];
+
+//                    songArtist = client.current_song[1];
+//                    songTitle = client.current_song[0];
+
+//                    submitSong = client.current_song.clone();
+                    descriptionSpotify = description_currentSong;
+                    savePostSpotify(description, descriptionSpotify, currentUser, client.current_song);
+                } else if (onRadioButtonSelected(topSong) == "top song" || onRadioButtonSelected(currentSong) == "top song") {
+//                    submitSong[0] = client.top_song[0];
+//                    submitSong[1] = client.top_song[1];
+
+//                    songArtist = client.top_song[1];
+//                    songTitle = client.top_song[0];
+
+                    submitSong = client.top_song.clone();
+                    descriptionSpotify = description_topSong;
+                    savePostSpotify(description, descriptionSpotify, currentUser, client.top_song);
+                } else { // no song was chosen
+                    descriptionSpotify = null;
+                    savePost(description, currentUser);
+                }
 
                 // check if it is a regular post without spotify info
-                if (descriptionSpotify != null) {
-                    savePostSpotify(description, descriptionSpotify, currentUser, songArtist, songTitle);
-                } else {
-                    savePost(description, currentUser, songArtist, songTitle);
-                }
+//                if (descriptionSpotify != null) {
+//                    savePostSpotify(description, descriptionSpotify, currentUser, submitSong);
+//                } else { // regular user post
+//                    savePost(description, currentUser);
+//                }
             }
         });
     }
@@ -126,16 +158,14 @@ public class ComposeActivity extends AppCompatActivity {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
 
-                        SpotifyClient client = new SpotifyClient(ComposeActivity.this, ACCESS_TOKEN);
-
                         client.getCurrentTrack(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
-                                client_current_song = client.current_song;
-                                client_current_artist = client.current_artist;
-                                songUrl_current = client.current_song_url;
-                                description_currentSong = "Current Song Playing: " + client.current_song + ", " + client.current_artist;
+//                                client_current_song = client.current_song;
+//                                client_current_artist = client.current_artist;
+//                                songUrl_current = client.current_song_url;
+                                description_currentSong = "Current Song Playing: " + client.current_song[0] + ", " + client.current_song[1];
                                 currentSong.setText(description_currentSong);
                             }
                         });
@@ -144,10 +174,10 @@ public class ComposeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
-                                client_top_artist = client.top_artist;
-                                client_top_song = client.top_song;
-                                songUrl_top = client.top_song_url;
-                                description_topSong = "Top Song This Month: " + client.top_song + ", " + client.top_artist;
+//                                client_top_artist = client.top_artist;
+//                                client_top_song = client.top_song;
+//                                songUrl_top = client.top_song_url;
+                                description_topSong = "Top Song This Month: " + client.top_song[0] + ", " + client.top_song[1];
                                 topSong.setText(description_topSong);
                             }
                         });
@@ -169,16 +199,18 @@ public class ComposeActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.currentSong:
                 if (checked) {
-                    songArtist = client_current_artist;
-                    songTitle = client_current_song;
-                    return description_currentSong;
+//                    songArtist = client_current_artist;
+//                    songTitle = client_current_song;
+                    return "current song";
+//                    return description_currentSong;
                 }
                 break;
             case R.id.topSong:
                 if (checked) {
-                    songArtist = client_top_artist;
-                    songTitle = client_top_song;
-                    return description_topSong;
+//                    songArtist = client_top_artist;
+//                    songTitle = client_top_song;
+//                    return description_topSong;
+                    return "top song";
                 }
                 break;
         }
@@ -194,17 +226,17 @@ public class ComposeActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.currentSong:
                 if (checked) {
-                    songUrl = songUrl_current;
-                    String description = getLyrics(client_current_artist, client_current_song);
-                    currentSong.setText(description_currentSong + description);
+//                    songUrl = songUrl_current;
+//                    String description = getLyrics(client_current_artist, client_current_song);
+                    currentSong.setText(description_currentSong);
                     return description_currentSong;
                 }
                 break;
             case R.id.topSong:
                 if (checked) {
-                    songUrl = songUrl_top;
-                    String description = getLyrics(client_top_artist, client_top_song);
-                    topSong.setText(description_topSong + description);
+//                    songUrl = songUrl_top;
+//                    String description = getLyrics(client_top_artist, client_top_song);
+                    topSong.setText(description_topSong);
                     return description_topSong;
                 }
                 break;
@@ -226,12 +258,10 @@ public class ComposeActivity extends AppCompatActivity {
 
     // user has choice whether or not to post with or without spotify info
     // this method creates post w/o extra spotify info; regular post
-    private void savePost(String description, ParseUser currentUser, String artist, String song) {
+    private void savePost(String description, ParseUser currentUser) {
         Post post = new Post();
         post.setDescription(description);
         post.setUser(currentUser);
-        post.setSongArtist(artist);
-        post.setSongTitle(song);
 
         // progress bar
         ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
@@ -257,14 +287,17 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     // creates post w/ extra spotify info
-    private void savePostSpotify(String description, String spotifyDescription, ParseUser currentUser, String artist, String song) {
+    private void savePostSpotify(String description, String spotifyDescription, ParseUser currentUser, String[] songDetails) {
+        Log.d(TAG, songDetails[0]);
+
         Post post = new Post();
         post.setDescription(description);
         post.setDescriptionSpotify(spotifyDescription);
         post.setUser(currentUser);
-        post.setSongUrl(songUrl);
-        post.setSongArtist(artist);
-        post.setSongTitle(song);
+        post.setSongUrl(songDetails[2]);
+        post.setSongArtist(songDetails[1]);
+        post.setSongTitle(songDetails[0]);
+        post.setSongCover(songDetails[3]);
 
         ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
         pd.setTitle("Loading...");
