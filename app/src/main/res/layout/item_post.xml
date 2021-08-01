@@ -37,42 +37,53 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="0dp"
                 android:layout_marginBottom="8dp"
                 tools:text="loving this song!!" />
 
             <ImageButton
                 android:id="@+id/ibPlay"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:visibility="gone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/tvDescription"
                 android:layout_marginRight="5dp"
                 android:layout_toEndOf="@+id/descriptionSpotify"
                 android:src="@drawable/ic_twotone_play_circle_filled_24"
-                android:visibility="gone"
+                android:background="@drawable/round_button"
                 app:tint="@color/black" />
 
-        <TextView
-            android:id="@+id/descriptionSpotify"
-            android:layout_width="310dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDescription"
-            android:layout_margin="5dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/button_default"
-            android:padding="10dp"
-            android:text="Yellow, Coldplay"
-            android:textAlignment="center"
-            android:visibility="gone" />
+            <ImageView
+                android:id="@+id/albumCover"
+                android:visibility="gone"
+                android:layout_marginLeft="15dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tvDescription"
+                />
+
+            <TextView
+                android:id="@+id/descriptionSpotify"
+                android:visibility="gone"
+                android:layout_width="240dp"
+                android:layout_marginBottom="15dp"
+                android:layout_toRightOf="@+id/albumCover"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDescription"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/button_default"
+                android:padding="10dp"
+                android:text="Yellow, Coldplay"
+                android:textAlignment="center"
+                 />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

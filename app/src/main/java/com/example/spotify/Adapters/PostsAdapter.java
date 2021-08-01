@@ -176,6 +176,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageButton ibPause;
         private TextView songArtist;
         private TextView songTitle;
+        private ImageView albumCover;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
@@ -189,6 +190,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ibPlay = itemView.findViewById(R.id.ibPlay);
             ibPlayBottom = itemView.findViewById(R.id.ibPlayBottom);
             ibPause = itemView.findViewById(R.id.ibPause);
+            albumCover = itemView.findViewById(R.id.albumCover);
         }
 
         public void bind(Post post) {
@@ -201,6 +203,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 descriptionSpotify.setText(spotifyDescription);
                 descriptionSpotify.setVisibility(View.VISIBLE);
                 ibPlay.setVisibility(View.VISIBLE);
+                albumCover.setVisibility(View.VISIBLE);
+                String albumCoverUrl = post.getSongCover();
+                Glide.with(context).load(albumCoverUrl).into(albumCover);
             }
             ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
             if (profilePhoto != null){
