@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfiles">
+    tools:context=".Activities.UserProfilesActivity">
 
     <ImageView
         android:id="@+id/ivProfilePic"
@@ -86,6 +86,23 @@
 
     </TableLayout>
 
+    <TextView
+        android:id="@+id/topUserSongs"
+        android:layout_below="@+id/userFollow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="songs:"
+        android:padding="10dp"
+        />
 
+    <TextView
+        android:id="@+id/compatibilityScore"
+        android:text="Compatibility Score: 90%"
+        android:layout_below="@+id/topUserSongs"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="7pt"/>
 
 </RelativeLayout>

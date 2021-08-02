@@ -104,27 +104,10 @@ public class ComposeActivity extends AppCompatActivity {
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
-                // set description depending on which button is selected
-//                descriptionSpotify = onRadioButtonSelected(topSong);
-//                descriptionSpotify = onRadioButtonSelected(currentSong);
-
                 if (onRadioButtonSelected(topSong) == "current song" || onRadioButtonSelected(currentSong) == "current song") {
-//                    submitSong[0] = client.current_song[0]; // song title
-//                    submitSong[1] = client.current_song[1];
-
-//                    songArtist = client.current_song[1];
-//                    songTitle = client.current_song[0];
-
-//                    submitSong = client.current_song.clone();
                     descriptionSpotify = description_currentSong;
                     savePostSpotify(description, descriptionSpotify, currentUser, client.current_song);
                 } else if (onRadioButtonSelected(topSong) == "top song" || onRadioButtonSelected(currentSong) == "top song") {
-//                    submitSong[0] = client.top_song[0];
-//                    submitSong[1] = client.top_song[1];
-
-//                    songArtist = client.top_song[1];
-//                    songTitle = client.top_song[0];
-
                     submitSong = client.top_song.clone();
                     descriptionSpotify = description_topSong;
                     savePostSpotify(description, descriptionSpotify, currentUser, client.top_song);
@@ -132,13 +115,6 @@ public class ComposeActivity extends AppCompatActivity {
                     descriptionSpotify = null;
                     savePost(description, currentUser);
                 }
-
-                // check if it is a regular post without spotify info
-//                if (descriptionSpotify != null) {
-//                    savePostSpotify(description, descriptionSpotify, currentUser, submitSong);
-//                } else { // regular user post
-//                    savePost(description, currentUser);
-//                }
             }
         });
     }
@@ -199,17 +175,11 @@ public class ComposeActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.currentSong:
                 if (checked) {
-//                    songArtist = client_current_artist;
-//                    songTitle = client_current_song;
                     return "current song";
-//                    return description_currentSong;
                 }
                 break;
             case R.id.topSong:
                 if (checked) {
-//                    songArtist = client_top_artist;
-//                    songTitle = client_top_song;
-//                    return description_topSong;
                     return "top song";
                 }
                 break;
@@ -226,16 +196,12 @@ public class ComposeActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.currentSong:
                 if (checked) {
-//                    songUrl = songUrl_current;
-//                    String description = getLyrics(client_current_artist, client_current_song);
                     currentSong.setText(description_currentSong);
                     return description_currentSong;
                 }
                 break;
             case R.id.topSong:
                 if (checked) {
-//                    songUrl = songUrl_top;
-//                    String description = getLyrics(client_top_artist, client_top_song);
                     topSong.setText(description_topSong);
                     return description_topSong;
                 }

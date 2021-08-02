@@ -35,6 +35,7 @@ import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -204,6 +205,30 @@ public class ProfileFragment extends Fragment {
                                 ParseUser currentUser = ParseUser.getCurrentUser();
                                 String songDetail = client.current_song[0] + "\n" + client.current_song[1];
                                 currentUser.put("songPlaying", songDetail);
+
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null){
+                                            Log.e(TAG, "Error while saving", e);
+                                        }
+                                        else {
+                                            Log.i(TAG, "Song save was successful!");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+
+                        client.getUserTopSongs(new VolleyCallback() {
+                            @Override
+                            public void onSuccess() {
+                                ParseUser currentUser = ParseUser.getCurrentUser();
+                                currentUser.remove("topSongs");
+                                currentUser.remove("topSongArtists");
+                                currentUser.addAll("topSongs", Arrays.asList(client.user_top_songs));
+                                currentUser.addAll("topSongArtists", Arrays.asList(client.user_top_song_artists));
 
                                 currentUser.saveInBackground(new SaveCallback() {
                                     @Override

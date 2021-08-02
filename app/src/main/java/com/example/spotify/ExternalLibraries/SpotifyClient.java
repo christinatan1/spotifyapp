@@ -19,23 +19,17 @@ import java.util.Map;
 
 public class SpotifyClient {
     private static final String GET_CURRENT_TRACK_URL = "https://api.spotify.com/v1/me/player";
-    private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
+    private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=20";
     private static final String GET_TRACK = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
     private RequestQueue queue;
     public static String ACCESS_TOKEN;
 
-    public String[] current_song = new String[10];
     // 0: song title, 1: artist, 2: song url, 3: album cover
-//    public String current_artist;
-//    public String current_song;
-//    public String current_song_url;
-//    public String current_album_cover;
-
+    public String[] current_song = new String[10];
     public String[] top_song = new String[10];
-//    public String top_artist;
-//    public String top_song;
-//    public String top_song_url;
-//    public String top_album_cover;
+
+    public String[] user_top_songs = new String[10];
+    public String[] user_top_song_artists = new String[10];
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -120,19 +114,25 @@ public class SpotifyClient {
         queue.add(jsonObjectRequest);
     }
 
-    // gets url of picture album cover, not implemented yet
-    public void getAlbumCover(VolleyCallback callback){
+    // gets user's top ten songs
+    public void getUserTopSongs(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_TOP_TRACK_URL, null,
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject getResponse) {
+                        Log.i("VOLLEY", getResponse.toString());
                         try {
-                            // get correct data that we want after getting response back
-                            Log.i("VOLLEY", getResponse.toString());
-                            Log.i("VOLLEY", getResponse.getString("item"));
+                            // get top _ of songs to save in parse
+                            for (int i = 0; i < 10; i++){
+                                user_top_songs[i] = getResponse.getJSONArray("items").getJSONObject(i).getString("name");
+                                user_top_song_artists[i] = getResponse.getJSONArray("items").getJSONObject(i).getJSONArray("artists").getJSONObject(0).getString("name");
+                                Log.d("Spotify Client", user_top_songs[i]);
+                            }
 
                             // call to interface after getting data
                             callback.onSuccess();
+
+//                            Log.d("Spotify Client", user_top_songs[0]);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
