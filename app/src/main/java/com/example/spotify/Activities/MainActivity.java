@@ -2,11 +2,16 @@ package com.example.spotify.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.spotify.Fragments.DashboardFragment;
 import com.example.spotify.Fragments.HomeFragment;
 import com.example.spotify.Fragments.ProfileFragment;
@@ -34,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
+    public static TextView songArtist;
+    public static TextView songTitle;
+    public static ImageView songAlbumCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setItemIconTintList(null);
+
+        songArtist = findViewById(R.id.songArtist);
+        songTitle = findViewById(R.id.songTitle);
+        songAlbumCover = findViewById(R.id.songAlbumCover);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -143,5 +155,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
+//    public static void setSheet(String songTitle, String songArtist, String albumCover){
+//        MainActivity.songArtist.setText(songArtist);
+//        MainActivity.songTitle.setText(songTitle);
+//
+//        Glide.with(MainActivity.this).load(albumCover).apply(RequestOptions.circleCropTransform()).into(MainActivity.songAlbumCover);
+//    }
 
 }

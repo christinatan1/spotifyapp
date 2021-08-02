@@ -17,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.spotify.Activities.MainActivity;
 import com.example.spotify.Activities.UserProfilesActivity;
 import com.example.spotify.ExternalLibraries.OnDoubleTapListenerOne;
 import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.SaveCallback;
@@ -60,6 +62,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         songArtist = parent.findViewById(R.id.songArtist);
         songTitle = parent.findViewById(R.id.songTitle);
+
+//        songArtist.setText("Hello");
 
         // pass in a blueprint of the xml file
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
@@ -117,7 +121,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 play(song);
 
                 // update song player details
-                Log.d(TAG, post.getSongTitle());
+//                Log.d(TAG, post.getSongTitle());
+//                Log.d(TAG, post.getSongArtist());
+//
+
+//                MainActivity.setSheet(post.getSongTitle(), post.getSongArtist(), post.getSongAlbumCover());
+                MainActivity.songArtist.setText(post.getSongArtist());
+                MainActivity.songTitle.setText(post.getSongTitle());
+
+                Glide.with(context).load(post.getSongAlbumCover()).into(MainActivity.songAlbumCover);
+
             }
         });
 
