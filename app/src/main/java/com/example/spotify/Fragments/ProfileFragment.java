@@ -143,6 +143,7 @@ public class ProfileFragment extends Fragment {
         }
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
+        followingCount.setText(String.valueOf(currentUser.getInt("following")));
     }
 
     protected void queryPosts(int i) {

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nexa_bold"
+        android:text="Create \nAccount"
+        android:lineSpacingExtra="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:textSize="19pt" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        app:endIconMode="custom"
+        android:layout_marginTop="25dp"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
+        android:hint="name"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_below="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username"
+        android:layout_below="@+id/name"
+        android:layout_width="match_parent"
+        app:endIconMode="custom"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/ic_baseline_assignment_ind_24"
+        android:hint="username"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password"
+        android:layout_below="@+id/username"
+        android:layout_width="match_parent"
+        app:endIconMode="custom"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+        android:hint="password"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/location"
+        android:layout_below="@+id/password"
+        android:layout_width="match_parent"
+        app:endIconMode="custom"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/ic_baseline_location_on_24"
+        android:hint="location"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/topGenre"
+        android:layout_below="@+id/location"
+        android:layout_width="match_parent"
+        app:endIconMode="custom"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/ic_baseline_music_note_24"
+        android:hint="top music genre"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTopGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.royrodriguez.transitionbutton.TransitionButton
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="570dp"
+        android:text="Sign up"
+        android:lineSpacingExtra="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/nexa_bold"
+        app:defaultColor="#5879BC"
+        android:textColor="@android:color/white" />
+
+
+
+
+</RelativeLayout>

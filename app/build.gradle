@@ -74,4 +74,5 @@ dependencies {
 
     implementation 'com.royrodriguez:transitionbutton:0.2.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+    implementation 'com.google.android.material:material:<version>'
 }

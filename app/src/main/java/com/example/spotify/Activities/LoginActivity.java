@@ -1,5 +1,6 @@
 package com.example.spotify.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,10 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                signupUser(username, password);
-
+                // send user to custom sign up page
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -95,47 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // button shakes if call was unsuccessful
                                 btnLogin.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                            }
-                        }
-                    }, 2000);
-                }
-            }
-        });
-    }
-
-    private void signupUser(String username, String password) {
-        // set up new user details
-        ParseUser user = new ParseUser();
-        user.setUsername(username);
-        user.setPassword(password);
-
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e != null) {
-                    // sign up didn't succeed (user does not exist). look at the ParseException to figure out what went wrong
-                    Log.e(TAG, "Issue with signup", e);
-                    Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    // start the loading animation when the user tap the button
-                    btnSignup.startAnimation();
-
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            boolean isSuccessful = true;
-                            // choose a stop animation if your call was succesful or not
-                            if (isSuccessful) {
-                                btnSignup.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
-                                    @Override
-                                    public void onAnimationStopEnd() {
-                                        // go to main activity if user has signed in properly,
-                                        goMainActivity();
-                                    }
-                                });
-                            } else {
-                                btnSignup.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
                             }
                         }
                     }, 2000);
