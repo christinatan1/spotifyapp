@@ -21,6 +21,7 @@ public class SpotifyClient {
     private static final String GET_CURRENT_TRACK_URL = "https://api.spotify.com/v1/me/player";
     private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=20";
     private static final String GET_TRACK = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
+    private static final String GET_PROFILE_PICTURE = "https://api.spotify.com/v1/me";
     private RequestQueue queue;
     public static String ACCESS_TOKEN;
 
@@ -30,6 +31,8 @@ public class SpotifyClient {
 
     public String[] user_top_songs = new String[8];
     public String[] user_top_song_artists = new String[8];
+
+    public String user_profile_picture;
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -131,8 +134,42 @@ public class SpotifyClient {
 
                             // call to interface after getting data
                             callback.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String auth = "Bearer " + ACCESS_TOKEN;
+                headers.put("Authorization: ", auth);
+                return headers;
+            }
 
-//                            Log.d("Spotify Client", user_top_songs[0]);
+        };
+        queue.add(jsonObjectRequest);
+    }
+
+    // gets user's top ten songs
+    public void getUserProfilePicture(VolleyCallback callback){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_PROFILE_PICTURE, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject getResponse) {
+                        Log.i("VOLLEY", getResponse.toString());
+                        try {
+                            user_profile_picture = getResponse.getJSONArray("images").getJSONObject(0).getString("url");
+
+                            // call to interface after getting data
+                            callback.onSuccess();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

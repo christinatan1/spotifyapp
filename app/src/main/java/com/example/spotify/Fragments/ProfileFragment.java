@@ -140,7 +140,11 @@ public class ProfileFragment extends Fragment {
         ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(getContext()).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
+        } else if (currentUser.getString("spotifyProfilePicture") != null){
+            Glide.with(getContext()).load(currentUser.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
+
+
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
         followingCount.setText(String.valueOf(currentUser.getInt("following")));
@@ -230,6 +234,26 @@ public class ProfileFragment extends Fragment {
                                 currentUser.remove("topSongArtists");
                                 currentUser.addAll("topSongs", Arrays.asList(client.user_top_songs));
                                 currentUser.addAll("topSongArtists", Arrays.asList(client.user_top_song_artists));
+
+                                currentUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null){
+                                            Log.e(TAG, "Error while saving", e);
+                                        }
+                                        else {
+                                            Log.i(TAG, "Song save was successful!");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+                        client.getUserProfilePicture(new VolleyCallback() {
+                            @Override
+                            public void onSuccess() {
+                                ParseUser currentUser = ParseUser.getCurrentUser();
+                                currentUser.put("spotifyProfilePicture", client.user_profile_picture);
 
                                 currentUser.saveInBackground(new SaveCallback() {
                                     @Override
