@@ -28,8 +28,8 @@ public class SpotifyClient {
     public String[] current_song = new String[10];
     public String[] top_song = new String[10];
 
-    public String[] user_top_songs = new String[10];
-    public String[] user_top_song_artists = new String[10];
+    public String[] user_top_songs = new String[8];
+    public String[] user_top_song_artists = new String[8];
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -122,8 +122,8 @@ public class SpotifyClient {
                     public void onResponse(JSONObject getResponse) {
                         Log.i("VOLLEY", getResponse.toString());
                         try {
-                            // get top _ of songs to save in parse
-                            for (int i = 0; i < 10; i++){
+                            // get top 8 songs to save in parse
+                            for (int i = 0; i < 8; i++){
                                 user_top_songs[i] = getResponse.getJSONArray("items").getJSONObject(i).getString("name");
                                 user_top_song_artists[i] = getResponse.getJSONArray("items").getJSONObject(i).getJSONArray("artists").getJSONObject(0).getString("name");
                                 Log.d("Spotify Client", user_top_songs[i]);

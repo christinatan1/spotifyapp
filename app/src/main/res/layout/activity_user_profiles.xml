@@ -13,14 +13,14 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProfilePic"
+        android:layout_toRightOf="@+id/ivProfilePic"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
@@ -30,7 +30,8 @@
     <TableLayout
         android:id="@+id/userFollow"
         android:layout_below="@+id/tvUsername"
-        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/ivProfilePic"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:layout_height="wrap_content">
@@ -39,6 +40,7 @@
             android:id="@+id/tableRow1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginTop="5dp">
             <TextView
                 android:id="@+id/followerCount"
@@ -64,6 +66,7 @@
 
         <TableRow
             android:id="@+id/tableRow2"
+            android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -87,18 +90,40 @@
     </TableLayout>
 
     <TextView
-        android:id="@+id/topUserSongs"
+        android:id="@+id/location"
         android:layout_below="@+id/userFollow"
+        android:layout_toEndOf="@+id/ivProfilePic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="songs:"
+        android:layout_marginTop="10dp"
+        android:text="Location: New York, US"
+        android:textAlignment="center"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/topGenre"
+        android:layout_below="@+id/location"
+        android:layout_toEndOf="@+id/ivProfilePic"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:text="Top Genre: Pop"
+        android:textAlignment="center"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/topSongs"
+        android:layout_below="@+id/ivProfilePic"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
-        />
+        android:text="songs:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 
     <TextView
         android:id="@+id/compatibilityScore"
         android:text="Compatibility Score: 90%"
-        android:layout_below="@+id/topUserSongs"
+        android:layout_below="@+id/topSongs"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
