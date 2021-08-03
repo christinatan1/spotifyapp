@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.spotify.Fragments.AllPostsFragment;
 import com.example.spotify.Fragments.DashboardFragment;
 import com.example.spotify.Fragments.HomeFragment;
 import com.example.spotify.Fragments.ProfileFragment;
@@ -71,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_home:
                         fragment = new HomeFragment();
+                        break;
+                    case R.id.navigation_allPosts:
+                        fragment = new AllPostsFragment();
                         break;
                     case R.id.navigation_profile:
                     default:

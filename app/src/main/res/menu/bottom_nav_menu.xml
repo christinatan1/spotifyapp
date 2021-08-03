@@ -4,18 +4,20 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/home_selector"
-        android:title="@string/title_home" />
+        android:icon="@drawable/home_selector" />
+
+    <item
+        android:id="@+id/navigation_allPosts"
+        android:icon="@drawable/ic_baseline_public_24"
+        android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/dashboard_selector"
-        android:title="@string/title_dashboard" />
+        android:icon="@drawable/dashboard_selector" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/profile_selector"
-        android:iconTint="@color/black"
-        android:title="@string/title_profile" />
+        android:iconTint="@color/black" />
 
 </menu>
