@@ -137,13 +137,14 @@ public class ProfileFragment extends Fragment {
 
         // get user in session, get user info from parse (backend)
         ParseUser currentUser = ParseUser.getCurrentUser();
+
+        // get profile picture from parse - if it doesn't exist, get profile picture from spotify
         ParseFile parseProfilePic = currentUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(getContext()).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         } else if (currentUser.getString("spotifyProfilePicture") != null){
             Glide.with(getContext()).load(currentUser.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
-
 
         tvUsername.setText(currentUser.getUsername());
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
@@ -199,6 +200,8 @@ public class ProfileFragment extends Fragment {
                         Log.d(TAG, "Connected! Yay!");
 
                         SpotifyClient client = new SpotifyClient(getContext(), ACCESS_TOKEN);
+
+                        // get user's current playing track
                         client.getCurrentTrack(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
@@ -225,7 +228,7 @@ public class ProfileFragment extends Fragment {
                             }
                         });
 
-
+                        // get user's top 8 songs of the month
                         client.getUserTopSongs(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
@@ -249,6 +252,7 @@ public class ProfileFragment extends Fragment {
                             }
                         });
 
+                        // get profile picture from user's account on spotify
                         client.getUserProfilePicture(new VolleyCallback() {
                             @Override
                             public void onSuccess() {

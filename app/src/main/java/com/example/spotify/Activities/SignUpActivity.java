@@ -47,8 +47,6 @@ public class SignUpActivity extends AppCompatActivity {
                 signupUser();
             }
         });
-
-
     }
 
     private void signupUser() {

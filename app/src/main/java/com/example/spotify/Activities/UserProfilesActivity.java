@@ -64,6 +64,8 @@ public class UserProfilesActivity extends AppCompatActivity {
         ParseFile parseProfilePic = postUser.getParseFile("profilePicture");
         if (parseProfilePic != null) {
             Glide.with(this).load(parseProfilePic.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
+        } else if (currentUser.getString("spotifyProfilePicture") != null){
+            Glide.with(this).load(currentUser.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
 
         // fill view with songs and calculate compatibility
@@ -100,7 +102,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         }
 
         // if order does not match up but there are similar songs,
-        // calculate weightbased on order
+        // calculate weight based on order
         for (int i = 0; i < postUserSongs.size(); i++){
             for (int j = 0; j < currentUserSongs.size(); j++){
                 if (i != j && (postUserSongs.get(i).equals(currentUserSongs.get(j)))){
