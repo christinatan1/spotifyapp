@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.spotify.ExternalLibraries.SpotifyClient;
+import com.example.spotify.ExternalLibraries.VolleyCallback;
 import com.example.spotify.Fragments.AllPostsFragment;
 import com.example.spotify.Fragments.DashboardFragment;
 import com.example.spotify.Fragments.HomeFragment;
@@ -29,6 +33,8 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import kaaes.spotify.webapi.android.SpotifyApi;
+
 public class MainActivity extends AppCompatActivity {
 
     // spotify info
@@ -43,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
     public static TextView songArtist;
     public static TextView songTitle;
     public static ImageView songAlbumCover;
+    public static ImageButton ibPause;
+    public static ImageButton ibPlayBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         songArtist = findViewById(R.id.songArtist);
         songTitle = findViewById(R.id.songTitle);
         songAlbumCover = findViewById(R.id.songAlbumCover);
+        ibPause = findViewById(R.id.ibPause);
+        ibPlayBottom = findViewById(R.id.ibPlayBottom);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -94,6 +103,32 @@ public class MainActivity extends AppCompatActivity {
         builder.setScopes(scope);
         AuthorizationRequest request = builder.build();
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        ibPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SpotifyClient client = new SpotifyClient(MainActivity.this, ACCESS_TOKEN);
+                client.pauseSong(new VolleyCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("MainActivity", "Paused!");
+                    }
+                });
+            }
+        });
+
+        ibPlayBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SpotifyClient client = new SpotifyClient(MainActivity.this, ACCESS_TOKEN);
+                client.playSong(new VolleyCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("MainActivity", "Paused!");
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -159,12 +194,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
-
-//    public static void setSheet(String songTitle, String songArtist, String albumCover){
-//        MainActivity.songArtist.setText(songArtist);
-//        MainActivity.songTitle.setText(songTitle);
-//
-//        Glide.with(MainActivity.this).load(albumCover).apply(RequestOptions.circleCropTransform()).into(MainActivity.songAlbumCover);
-//    }
 
 }

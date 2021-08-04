@@ -121,7 +121,6 @@ public class ComposeActivity extends AppCompatActivity {
 
     // method called once user navigates to compose, fills in text in buttons
     private void setButtons() {
-
         ConnectionParams connectionParams =
                 new ConnectionParams.Builder(CLIENT_ID)
                         .setRedirectUri(REDIRECT_URI)
@@ -138,9 +137,6 @@ public class ComposeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
-//                                client_current_song = client.current_song;
-//                                client_current_artist = client.current_artist;
-//                                songUrl_current = client.current_song_url;
                                 description_currentSong = "Current Song Playing: " + client.current_song[0] + ", " + client.current_song[1];
                                 currentSong.setText(description_currentSong);
                             }
@@ -150,9 +146,6 @@ public class ComposeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
-//                                client_top_artist = client.top_artist;
-//                                client_top_song = client.top_song;
-//                                songUrl_top = client.top_song_url;
                                 description_topSong = "Top Song This Month: " + client.top_song[0] + ", " + client.top_song[1];
                                 topSong.setText(description_topSong);
                             }

@@ -22,6 +22,8 @@ public class SpotifyClient {
     private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=20";
     private static final String GET_TRACK = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
     private static final String GET_PROFILE_PICTURE = "https://api.spotify.com/v1/me";
+    private static final String PUT_PAUSE = "https://api.spotify.com/v1/me/player/pause";
+    private static final String PUT_PLAY = "https://api.spotify.com/v1/me/player/play";
     private RequestQueue queue;
     public static String ACCESS_TOKEN;
 
@@ -179,6 +181,56 @@ public class SpotifyClient {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("TAG", error.getMessage(), error);
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String auth = "Bearer " + ACCESS_TOKEN;
+                headers.put("Authorization: ", auth);
+                return headers;
+            }
+
+        };
+        queue.add(jsonObjectRequest);
+    }
+
+    public void pauseSong(VolleyCallback callback){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, PUT_PAUSE, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject getResponse) {
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String auth = "Bearer " + ACCESS_TOKEN;
+                headers.put("Authorization: ", auth);
+                return headers;
+            }
+
+        };
+        queue.add(jsonObjectRequest);
+    }
+
+    public void playSong(VolleyCallback callback){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, PUT_PLAY, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject getResponse) {
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
                     }
                 })
         {
