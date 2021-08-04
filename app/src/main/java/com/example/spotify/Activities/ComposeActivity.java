@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -31,12 +32,15 @@ import java.util.List;
 
 public class ComposeActivity extends AppCompatActivity {
 
+    // xml components
     private TextInputLayout etDescription;
     private Button btnSubmit;
     private RadioButton currentSong;
     private RadioButton topSong;
     private RadioButton playlistOne;
     private RadioButton playlistTwo;
+    private ImageButton btnBack;
+
     private String description_topSong;
     private String description_currentSong;
     private String descriptionSpotify;
@@ -73,6 +77,7 @@ public class ComposeActivity extends AppCompatActivity {
         topSong = findViewById(R.id.topSong);
         playlistOne = findViewById(R.id.playlistOne);
         playlistTwo = findViewById(R.id.playlistTwo);
+        btnBack = findViewById(R.id.btnBack);
 
         // submit post
         submitListener();
@@ -85,7 +90,12 @@ public class ComposeActivity extends AppCompatActivity {
         // onRadioButtonClicked(currentSong);
         // onRadioButtonClicked(topSong);
 
-        Log.d(TAG, ACCESS_TOKEN);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class UserProfilesActivity extends AppCompatActivity {
     private TextView location;
     private TextView topGenre;
     private Button btnFollow;
+    private ImageButton btnBack;
     public static final String TAG = "UserProfilesActivity";
 
     @Override
@@ -56,6 +58,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         location = findViewById(R.id.location);
         topGenre = findViewById(R.id.topGenre);
         btnFollow = findViewById(R.id.btnFollow);
+        btnBack = findViewById(R.id.btnBack);
 
         // user parse class
         ParseUser postUser = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
@@ -115,6 +118,13 @@ public class UserProfilesActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserProfilesActivity.super.onBackPressed();
             }
         });
     }

@@ -6,13 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".Activities.UserProfilesActivity">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_round_keyboard_backspace_24"
+        android:scaleType="fitXY" />
+
     <ImageView
         android:id="@+id/ivProfilePic"
+        android:layout_below="@+id/btnBack"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         tools:srcCompat="@tools:sample/avatars" />
 

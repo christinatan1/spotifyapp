@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ComposeActivity">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_round_keyboard_backspace_24"
+        android:scaleType="fitXY" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconMode="custom"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         app:startIconDrawable="@drawable/ic_baseline_edit_24"
         android:hint="description"
         app:boxCornerRadiusBottomEnd="8dp"
@@ -40,7 +49,6 @@
             android:layout_marginLeft="30dp"
             android:textSize="5pt"
             android:text="Current Song Playing: "/>
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
