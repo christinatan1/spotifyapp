@@ -90,6 +90,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             ParseFile profilePhoto = user.getParseFile("profilePicture");
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
+            } else if (user.getString("spotifyProfilePicture") != null){
+                Glide.with(context).load(user.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
             }
 
             playingSong.setText(user.getString("songPlaying"));

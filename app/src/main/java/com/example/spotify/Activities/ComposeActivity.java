@@ -251,7 +251,7 @@ public class ComposeActivity extends AppCompatActivity {
 
         Post post = new Post();
         post.setDescription(description);
-        post.setDescriptionSpotify(spotifyDescription);
+//        post.setDescriptionSpotify(spotifyDescription);
         post.setUser(currentUser);
         post.setSongUrl(songDetails[2]);
         post.setSongArtist(songDetails[1]);

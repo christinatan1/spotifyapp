@@ -190,6 +190,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView songArtist;
         private TextView songTitle;
         private ImageView albumCover;
+        private TextView tvPostArtist;
+        private TextView tvPostTitle;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
@@ -199,11 +201,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfile = itemView.findViewById(R.id.ivProfile);
             numLikes = itemView.findViewById(R.id.numLikes);
             like = itemView.findViewById(R.id.like);
-            descriptionSpotify = itemView.findViewById(R.id.descriptionSpotify);
             ibPlay = itemView.findViewById(R.id.ibPlay);
             ibPlayBottom = itemView.findViewById(R.id.ibPlayBottom);
             ibPause = itemView.findViewById(R.id.ibPause);
             albumCover = itemView.findViewById(R.id.albumCover);
+            tvPostArtist = itemView.findViewById(R.id.tvPostArtist);
+            tvPostTitle = itemView.findViewById(R.id.tvPostTitle);
         }
 
         public void bind(Post post) {
@@ -211,10 +214,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             numLikes.setText(String.valueOf(post.getLikes()) + " likes");
-            String spotifyDescription = post.getDescriptionSpotify();
-            if (spotifyDescription != null){
-                descriptionSpotify.setText(spotifyDescription);
-                descriptionSpotify.setVisibility(View.VISIBLE);
+            String spotifySongArtist = post.getSongArtist();
+            String spotifySongTitle = post.getSongTitle();
+            if (spotifySongArtist != null){
+                tvPostTitle.setText(spotifySongTitle);
+                tvPostArtist.setText(spotifySongArtist);
+                tvPostArtist.setVisibility(View.VISIBLE);
+                tvPostTitle.setVisibility(View.VISIBLE);
                 ibPlay.setVisibility(View.VISIBLE);
                 albumCover.setVisibility(View.VISIBLE);
                 String albumCoverUrl = post.getSongCover();
@@ -223,6 +229,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ParseFile profilePhoto = post.getUser().getParseFile("profilePicture");
             if (profilePhoto != null){
                 Glide.with(context).load(profilePhoto.getUrl()).apply(RequestOptions.circleCropTransform()).into(ivProfile);
+            } else if (post.getUser().getString("spotifyProfilePicture") != null){
+                Glide.with(context).load(post.getUser().getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfile);
             }
         }
     }

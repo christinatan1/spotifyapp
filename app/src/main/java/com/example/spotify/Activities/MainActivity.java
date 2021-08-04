@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // sets up toolbar at top with button to compose activity
          Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
+         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setItemIconTintList(null);
