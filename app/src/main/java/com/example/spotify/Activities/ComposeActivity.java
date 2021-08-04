@@ -18,6 +18,7 @@ import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
 import com.example.spotify.ExternalLibraries.SpotifyClient;
 import com.example.spotify.ExternalLibraries.VolleyCallback;
+import com.google.android.material.textfield.TextInputLayout;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -27,7 +28,7 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 public class ComposeActivity extends AppCompatActivity {
 
-    private EditText etDescription;
+    private TextInputLayout etDescription;
     private Button btnSubmit;
     private RadioButton currentSong;
     private RadioButton topSong;
@@ -36,17 +37,7 @@ public class ComposeActivity extends AppCompatActivity {
     private String descriptionSpotify;
     private String songArtist;
     private String songTitle;
-//    private String songUrl_current;
-//    private String songUrl_top;
     private String songUrl;
-
-//    public String client_current_artist;
-//    public String client_current_song;
-//    public String client_current_album_cover;
-//
-//    public String client_top_artist;
-//    public String client_top_song;
-//    public String client_top_album_cover;
 
     // 0: song title, 1: artist, 2: song url, 3: album cover
     public String[] submitSong = new String[10];
@@ -95,7 +86,7 @@ public class ComposeActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String description = etDescription.getText().toString();
+                String description = etDescription.getEditText().getText().toString();
                 if (description.isEmpty()) {
                     Toast.makeText(ComposeActivity.this, "Description cannot be empty",
                             Toast.LENGTH_SHORT).show();
@@ -137,7 +128,7 @@ public class ComposeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
-                                description_currentSong = "Current Song Playing: " + client.current_song[0] + ", " + client.current_song[1];
+                                description_currentSong = client.current_song[0] + "\n" + client.current_song[1];
                                 currentSong.setText(description_currentSong);
                             }
                         });
@@ -146,7 +137,7 @@ public class ComposeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 // get info from client, set it as a global variable in compose activity for other methods
-                                description_topSong = "Top Song This Month: " + client.top_song[0] + ", " + client.top_song[1];
+                                description_topSong = client.top_song[0] + "\n" + client.top_song[1];
                                 topSong.setText(description_topSong);
                             }
                         });
@@ -237,7 +228,7 @@ public class ComposeActivity extends AppCompatActivity {
                 }
                 pd.dismiss();
                 Log.i(TAG, "Post save was successful!");
-                etDescription.setText("");
+                etDescription.getEditText().setText("");
 
                 Intent i = new Intent(ComposeActivity.this, MainActivity.class);
                 startActivity(i);
@@ -273,7 +264,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
                 Log.i(TAG, "Post save was successful!");
-                etDescription.setText("");
+                etDescription.getEditText().setText("");
 
                 Intent i = new Intent(ComposeActivity.this, MainActivity.class);
                 startActivity(i);
