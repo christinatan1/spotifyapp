@@ -32,6 +32,8 @@ public class ComposeActivity extends AppCompatActivity {
     private Button btnSubmit;
     private RadioButton currentSong;
     private RadioButton topSong;
+    private RadioButton playlistOne;
+    private RadioButton playlistTwo;
     private String description_topSong;
     private String description_currentSong;
     private String descriptionSpotify;
@@ -65,6 +67,8 @@ public class ComposeActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         currentSong = findViewById(R.id.currentSong);
         topSong = findViewById(R.id.topSong);
+        playlistOne = findViewById(R.id.playlistOne);
+        playlistTwo = findViewById(R.id.playlistTwo);
 
         // submit post
         submitListener();
@@ -141,6 +145,16 @@ public class ComposeActivity extends AppCompatActivity {
                                 topSong.setText(description_topSong);
                             }
                         });
+
+                        ParseUser currentUser = ParseUser.getCurrentUser();
+                        client.getUserPlaylists(new VolleyCallback() {
+                            @Override
+                            public void onSuccess() {
+                                // get info from client, set it as a global variable in compose activity for other methods
+                                playlistOne.setText(client.playlist_titles.get(0) + "\n" + "@" +currentUser.getString("spotifyUsername"));
+                                playlistTwo.setText(client.playlist_titles.get(1) + "\n" + "@" + currentUser.getString("spotifyUsername"));
+                            }
+                        }, currentUser.getString("spotifyUsername"));
                     }
 
                     public void onFailure(Throwable throwable) {

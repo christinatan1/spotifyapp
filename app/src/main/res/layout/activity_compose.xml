@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
             android:padding="10dp"
-            android:text="Song Title" />
+            android:text="" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Song Title " />
+            android:text="" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:textSize="5pt"
-            android:text="User Public Playlists: "/>
+            android:text="User's Public Playlists: "/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Playlist " />
+                android:text="" />
         </androidx.cardview.widget.CardView>
 
 
@@ -110,26 +110,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Playlist  " />
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            app:cardCornerRadius="20dp"
-            android:layout_height="wrap_content" >
-        <RadioButton
-            android:id="@+id/playlistThree"
-            android:padding="10dp"
-            android:layout_marginVertical="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="Playlist " />
+            android:text="" />
         </androidx.cardview.widget.CardView>
 
     </RadioGroup>
-
 
     <Button
         android:id="@+id/btnSubmit"

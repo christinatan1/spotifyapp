@@ -10,11 +10,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SpotifyClient {
@@ -22,6 +26,7 @@ public class SpotifyClient {
     private static final String GET_TOP_TRACK_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=20";
     private static final String GET_TRACK = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term";
     private static final String GET_PROFILE_PICTURE = "https://api.spotify.com/v1/me";
+    private static final String GET_PLAYLISTS = "https://api.spotify.com/v1/me/playlists";
     private static final String PUT_PAUSE = "https://api.spotify.com/v1/me/player/pause";
     private static final String PUT_PLAY = "https://api.spotify.com/v1/me/player/play";
     private RequestQueue queue;
@@ -35,6 +40,7 @@ public class SpotifyClient {
     public String[] user_top_song_artists = new String[8];
 
     public String user_profile_picture;
+    public List<String> playlist_titles = new ArrayList<String>();
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -160,7 +166,7 @@ public class SpotifyClient {
         queue.add(jsonObjectRequest);
     }
 
-    // gets user's top ten songs
+    // gets user's profile picture from spotify
     public void getUserProfilePicture(VolleyCallback callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_PROFILE_PICTURE, null,
                 new Response.Listener<JSONObject>(){
@@ -169,6 +175,52 @@ public class SpotifyClient {
                         Log.i("VOLLEY", getResponse.toString());
                         try {
                             user_profile_picture = getResponse.getJSONArray("images").getJSONObject(0).getString("url");
+
+                            // call to interface after getting data
+                            callback.onSuccess();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("TAG", error.getMessage(), error);
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String auth = "Bearer " + ACCESS_TOKEN;
+                headers.put("Authorization: ", auth);
+                return headers;
+            }
+
+        };
+        queue.add(jsonObjectRequest);
+    }
+
+
+    // gets user's public playlists
+    public void getUserPlaylists(VolleyCallback callback, String user){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,GET_PLAYLISTS, null,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject getResponse) {
+//                        Log.i("VOLLEY playlists", getResponse.toString());
+                        try {
+                            JSONArray playlists = getResponse.getJSONArray("items");
+                            for (int i = 0; i < playlists.length(); i++){
+                                JSONObject playlist = playlists.getJSONObject(i);
+//                                Log.i("VOLLEY", String.valueOf(playlists.getJSONObject(i)));
+
+                                if (playlist.getJSONObject("owner").getString("display_name").equals(user)){
+//                                    Log.i("VOLLEY", playlist.getString("name"));
+                                    playlist_titles.add(playlist.getString("name"));
+                                }
+                            }
 
                             // call to interface after getting data
                             callback.onSuccess();
