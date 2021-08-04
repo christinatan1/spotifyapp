@@ -41,6 +41,8 @@ public class SpotifyClient {
 
     public String user_profile_picture;
     public List<String> playlist_titles = new ArrayList<String>();
+    public List<String> user_playlist_covers = new ArrayList<String>();
+    public List<String> user_playlist_links = new ArrayList<String>();
 
     public SpotifyClient(Context context, String access_token) {
         queue = Volley.newRequestQueue(context);
@@ -209,16 +211,15 @@ public class SpotifyClient {
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject getResponse) {
-//                        Log.i("VOLLEY playlists", getResponse.toString());
                         try {
                             JSONArray playlists = getResponse.getJSONArray("items");
                             for (int i = 0; i < playlists.length(); i++){
                                 JSONObject playlist = playlists.getJSONObject(i);
-//                                Log.i("VOLLEY", String.valueOf(playlists.getJSONObject(i)));
 
                                 if (playlist.getJSONObject("owner").getString("display_name").equals(user)){
-//                                    Log.i("VOLLEY", playlist.getString("name"));
                                     playlist_titles.add(playlist.getString("name"));
+                                    user_playlist_covers.add(playlist.getJSONArray("images").getJSONObject(0).getString("url"));
+                                    user_playlist_links.add(playlist.getString("uri"));
                                 }
                             }
 

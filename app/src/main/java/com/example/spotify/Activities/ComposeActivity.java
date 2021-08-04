@@ -26,6 +26,9 @@ import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ComposeActivity extends AppCompatActivity {
 
     private TextInputLayout etDescription;
@@ -40,6 +43,7 @@ public class ComposeActivity extends AppCompatActivity {
     private String songArtist;
     private String songTitle;
     private String songUrl;
+    public List<String> user_playlist_pictures = new ArrayList<String>();
 
     // 0: song title, 1: artist, 2: song url, 3: album cover
     public String[] submitSong = new String[10];
@@ -100,14 +104,17 @@ public class ComposeActivity extends AppCompatActivity {
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
                 if (onRadioButtonSelected(topSong) == "current song" || onRadioButtonSelected(currentSong) == "current song") {
-                    descriptionSpotify = description_currentSong;
-                    savePostSpotify(description, descriptionSpotify, currentUser, client.current_song);
+//                    descriptionSpotify = description_currentSong;
+                    savePostSpotify(description, currentUser, client.current_song);
                 } else if (onRadioButtonSelected(topSong) == "top song" || onRadioButtonSelected(currentSong) == "top song") {
                     submitSong = client.top_song.clone();
-                    descriptionSpotify = description_topSong;
-                    savePostSpotify(description, descriptionSpotify, currentUser, client.top_song);
+//                    descriptionSpotify = description_topSong;
+                    savePostSpotify(description, currentUser, client.top_song);
+                } else if (onRadioButtonSelected(playlistOne) == "first playlist" || onRadioButtonSelected(playlistTwo) == "first playlist"){
+                    savePostPlaylist(description, currentUser, 0);
+                } else if (onRadioButtonSelected(playlistTwo) == "second playlist" || onRadioButtonSelected(playlistTwo) == "second playlist"){
+                    savePostPlaylist(description, currentUser, 1);
                 } else { // no song was chosen
-                    descriptionSpotify = null;
                     savePost(description, currentUser);
                 }
             }
@@ -153,6 +160,7 @@ public class ComposeActivity extends AppCompatActivity {
                                 // get info from client, set it as a global variable in compose activity for other methods
                                 playlistOne.setText(client.playlist_titles.get(0) + "\n" + "@" +currentUser.getString("spotifyUsername"));
                                 playlistTwo.setText(client.playlist_titles.get(1) + "\n" + "@" + currentUser.getString("spotifyUsername"));
+                                user_playlist_pictures = client.user_playlist_covers;
                             }
                         }, currentUser.getString("spotifyUsername"));
                     }
@@ -179,6 +187,16 @@ public class ComposeActivity extends AppCompatActivity {
             case R.id.topSong:
                 if (checked) {
                     return "top song";
+                }
+                break;
+            case R.id.playlistOne:
+                if (checked) {
+                    return "first playlist";
+                }
+                break;
+            case R.id.playlistTwo:
+                if (checked) {
+                    return "second playlist";
                 }
                 break;
         }
@@ -250,18 +268,53 @@ public class ComposeActivity extends AppCompatActivity {
         });
     }
 
-    // creates post w/ extra spotify info
-    private void savePostSpotify(String description, String spotifyDescription, ParseUser currentUser, String[] songDetails) {
-        Log.d(TAG, songDetails[0]);
+    // creates post w/ extra spotify song
+    private void savePostSpotify(String description, ParseUser currentUser, String[] songDetails) {
 
         Post post = new Post();
         post.setDescription(description);
-//        post.setDescriptionSpotify(spotifyDescription);
         post.setUser(currentUser);
         post.setSongUrl(songDetails[2]);
         post.setSongArtist(songDetails[1]);
         post.setSongTitle(songDetails[0]);
         post.setSongCover(songDetails[3]);
+        post.setUserID(currentUser.getObjectId());
+
+        ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
+        pd.setTitle("Loading...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
+        pd.show();
+
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(ComposeActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i(TAG, "Post save was successful!");
+                etDescription.getEditText().setText("");
+
+                Intent i = new Intent(ComposeActivity.this, MainActivity.class);
+                startActivity(i);
+                pd.dismiss();
+            }
+        });
+    }
+
+
+    // creates post w/ playlists
+    // int starts from index 0
+    private void savePostPlaylist(String description, ParseUser currentUser, int i) {
+
+        Post post = new Post();
+        post.setDescription(description);
+        post.setUser(currentUser);
+        post.setSongTitle(client.playlist_titles.get(i));
+        post.setSongArtist("@" + currentUser.getUsername());
+        post.setSongCover(user_playlist_pictures.get(i));
+        post.setSongUrl(client.user_playlist_links.get(i));
         post.setUserID(currentUser.getObjectId());
 
         ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
