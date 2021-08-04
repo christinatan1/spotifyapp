@@ -29,6 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView songAlbumCover;
     public static ImageButton ibPause;
     public static ImageButton ibPlayBottom;
+    public static View bottomSheetParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         songAlbumCover = findViewById(R.id.songAlbumCover);
         ibPause = findViewById(R.id.ibPause);
         ibPlayBottom = findViewById(R.id.ibPlayBottom);
+        bottomSheetParent = findViewById(R.id.bottom_sheet_parent);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

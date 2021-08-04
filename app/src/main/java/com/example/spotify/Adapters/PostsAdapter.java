@@ -121,16 +121,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 play(song);
 
                 // update song player details
-//                Log.d(TAG, post.getSongTitle());
-//                Log.d(TAG, post.getSongArtist());
-//
-
-//                MainActivity.setSheet(post.getSongTitle(), post.getSongArtist(), post.getSongAlbumCover());
+                MainActivity.bottomSheetParent.setVisibility(View.VISIBLE);
+                MainActivity.songTitle.setSelected(true);
                 MainActivity.songArtist.setText(post.getSongArtist());
                 MainActivity.songTitle.setText(post.getSongTitle());
 
                 Glide.with(context).load(post.getSongAlbumCover()).into(MainActivity.songAlbumCover);
-
             }
         });
 

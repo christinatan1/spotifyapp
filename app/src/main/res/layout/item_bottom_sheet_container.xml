@@ -25,19 +25,27 @@
 
         <TextView
             android:id="@+id/songTitle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="60dp"
             android:padding="10dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:paddingBottom="2dp"
             android:text="Song Title"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+
+            android:ellipsize = "marquee"
+            android:fadingEdge = "horizontal"
+            android:marqueeRepeatLimit = "marquee_forever"
+            android:scrollHorizontally = "true"
+            android:singleLine = "true" />
 
         <TextView
             android:id="@+id/songArtist"
-            android:layout_width="match_parent"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
             android:gravity="left"
             android:padding="10dp"
