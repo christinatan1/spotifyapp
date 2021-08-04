@@ -3,8 +3,10 @@ package com.example.spotify.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -39,7 +41,7 @@ public class UserProfilesActivity extends AppCompatActivity {
     private TextView compatibilityScore;
     private TextView location;
     private TextView topGenre;
-    private Button btnFollow;
+    private ImageButton btnFollow;
     private ImageButton btnBack;
     public static final String TAG = "UserProfilesActivity";
 
@@ -59,6 +61,8 @@ public class UserProfilesActivity extends AppCompatActivity {
         topGenre = findViewById(R.id.topGenre);
         btnFollow = findViewById(R.id.btnFollow);
         btnBack = findViewById(R.id.btnBack);
+        btnFollow.setClickable(true);
+        btnFollow.setPressed(false);
 
         // user parse class
         ParseUser postUser = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
@@ -68,9 +72,9 @@ public class UserProfilesActivity extends AppCompatActivity {
         int numFollowers = postUser.getInt("followers");
 //        followerCount.setText(String.valueOf(postUser.getInt("followers")));
 //        followingCount.setText(String.valueOf(postUser.getInt("following")));
-        tvUsername.setText(postUser.getUsername());
-        location.setText("Location: " + postUser.getString("location"));
-        topGenre.setText("Top Music Genre: " + postUser.getString("topGenres"));
+        tvUsername.setText("@" + postUser.getUsername());
+        location.setText(postUser.getString("location"));
+        topGenre.setText(postUser.getString("topGenres"));
 
         // get profile picture, if it exists
         ParseFile parseProfilePic = postUser.getParseFile("profilePicture");
@@ -90,22 +94,14 @@ public class UserProfilesActivity extends AppCompatActivity {
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                postUser.put("followers", postUser.getInt("followers")+1 );
-//                postUser.saveInBackground(new SaveCallback() {
-//                    @Override
-//                    public void done(ParseException e) {
-//                        if (e != null){
-//                            Log.e(TAG, "Error while saving", e);
-//                        }
-//                        else {
-//                            Log.i(TAG, "Save was successful!");
-//                        }
-//                    }
-//                });
                 currentUser.put("following", postUser.getInt("following")+1 );
                 currentUser.addAllUnique("usersFollowing", Arrays.asList(postUser.getObjectId()));
-//                followerCount.setText(String.valueOf(postUser.getInt("followers")));
-                btnFollow.setText("Following");
+
+                btnFollow.setPressed(true);
+                btnFollow.setEnabled(true);
+                btnFollow.setImageResource(R.drawable.ic_round_check_circle_outline_24);
+                btnFollow.setBackgroundResource(R.drawable.transparent_button_border);
+                btnFollow.setBackgroundColor(Color.parseColor("#ffffff"));
 
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override

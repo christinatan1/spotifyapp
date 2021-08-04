@@ -94,7 +94,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 post.addLikes();
-                holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
+                holder.numLikes.setText(String.valueOf(post.getLikes()));
                 holder.like.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                 post.saveInBackground(new SaveCallback() {
                     @Override
@@ -136,7 +136,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             public void onDoubleTap(MotionEvent e) {
                 Log.d("PostsAdapter", "success");
                 post.addLikes();
-                holder.numLikes.setText(String.valueOf(post.getLikes()) + " likes");
+                holder.numLikes.setText(String.valueOf(post.getLikes()));
                 holder.like.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                 post.saveInBackground(new SaveCallback() {
                     @Override
@@ -209,7 +209,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             // bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
-            numLikes.setText(String.valueOf(post.getLikes()) + " likes");
+            numLikes.setText(String.valueOf(post.getLikes()));
             String spotifySongArtist = post.getSongArtist();
             String spotifySongTitle = post.getSongTitle();
             if (spotifySongArtist != null){

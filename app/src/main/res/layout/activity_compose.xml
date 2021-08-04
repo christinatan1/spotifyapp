@@ -123,12 +123,17 @@
 
     </RadioGroup>
 
-    <Button
+    <com.royrodriguez.transitionbutton.TransitionButton
         android:id="@+id/btnSubmit"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/postChoices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/nexa_bold"
+        app:defaultColor="#5879BC"
+        app:cornerRadius="10dp"
+        android:textColor="@android:color/white"
         android:text="Submit"/>
 
 </RelativeLayout>
