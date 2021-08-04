@@ -5,6 +5,8 @@ import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,13 +15,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.spotify.ParseClasses.Post;
 import com.example.spotify.ParseClasses.User;
 import com.example.spotify.R;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserProfilesActivity extends AppCompatActivity {
@@ -32,7 +38,8 @@ public class UserProfilesActivity extends AppCompatActivity {
     private TextView compatibilityScore;
     private TextView location;
     private TextView topGenre;
-
+    private Button btnFollow;
+    public static final String TAG = "UserProfilesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +55,16 @@ public class UserProfilesActivity extends AppCompatActivity {
         compatibilityScore = findViewById(R.id.compatibilityScore);
         location = findViewById(R.id.location);
         topGenre = findViewById(R.id.topGenre);
+        btnFollow = findViewById(R.id.btnFollow);
 
         // user parse class
         ParseUser postUser = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getName()));
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         // get backend info
-        followerCount.setText(String.valueOf(postUser.getInt("followers")));
-        followingCount.setText(String.valueOf(postUser.getInt("following")));
+        int numFollowers = postUser.getInt("followers");
+//        followerCount.setText(String.valueOf(postUser.getInt("followers")));
+//        followingCount.setText(String.valueOf(postUser.getInt("following")));
         tvUsername.setText(postUser.getUsername());
         location.setText("Location: " + postUser.getString("location"));
         topGenre.setText("Top Music Genre: " + postUser.getString("topGenres"));
@@ -73,6 +82,41 @@ public class UserProfilesActivity extends AppCompatActivity {
 
         // calculate score and display
         compatibilityScore.setText("Compatibility Score: " + String.valueOf(calculateScore(postUser, currentUser)) + "%");
+
+        // add a follower when follow button is pressed
+        btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                postUser.put("followers", postUser.getInt("followers")+1 );
+//                postUser.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        if (e != null){
+//                            Log.e(TAG, "Error while saving", e);
+//                        }
+//                        else {
+//                            Log.i(TAG, "Save was successful!");
+//                        }
+//                    }
+//                });
+                currentUser.put("following", postUser.getInt("following")+1 );
+                currentUser.addAllUnique("usersFollowing", Arrays.asList(postUser.getObjectId()));
+//                followerCount.setText(String.valueOf(postUser.getInt("followers")));
+                btnFollow.setText("Following");
+
+                currentUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null){
+                            Log.e(TAG, "Error while saving", e);
+                        }
+                        else {
+                            Log.i(TAG, "Save was successful!");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private int calculateScore(ParseUser postUser, ParseUser currentUser) {

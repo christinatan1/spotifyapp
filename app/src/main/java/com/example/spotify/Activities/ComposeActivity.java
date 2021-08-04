@@ -264,6 +264,7 @@ public class ComposeActivity extends AppCompatActivity {
         post.setSongArtist(songDetails[1]);
         post.setSongTitle(songDetails[0]);
         post.setSongCover(songDetails[3]);
+        post.setUserID(currentUser.getObjectId());
 
         ProgressDialog pd = new ProgressDialog(ComposeActivity.this);
         pd.setTitle("Loading...");

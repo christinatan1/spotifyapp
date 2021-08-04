@@ -26,6 +26,7 @@ public class Post extends ParseObject {
     public static final String KEY_SONG_TITLE = "songTitle";
     public static final String KEY_SONG_ARTIST = "songArtist";
     public static final String KEY_COVER = "albumCover";
+    public static final String KEY_USER_ID = "userID";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -66,6 +67,8 @@ public class Post extends ParseObject {
     public String getSongArtist() { return getString(KEY_SONG_ARTIST); }
     public void setSongArtist(String artist) { put(KEY_SONG_ARTIST, artist); }
     public String getSongAlbumCover() { return getString(KEY_COVER); }
+
+    public void setUserID(String id) { put(KEY_USER_ID, id); }
 
     // calculate time since user has posted/updated something
     public static String calculateTimeAgo(Date createdAt) {

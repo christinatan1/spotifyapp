@@ -13,7 +13,7 @@
         android:lineSpacingExtra="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="50dp"
-        android:textSize="19pt" />
+        android:textSize="17pt" />
 
 
     <com.google.android.material.textfield.TextInputLayout
