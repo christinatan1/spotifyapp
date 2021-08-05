@@ -96,14 +96,20 @@
         </TableRow>
     </TableLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/logoutBtn"
-        android:text="Logout"
-        android:layout_below="@+id/ivProfilePic"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:src="@drawable/ic_baseline_login_24"
+        android:backgroundTint="@color/white"
+
+        android:outlineAmbientShadowColor="@color/grey"
+        android:layout_marginBottom="19dp"
+        android:layout_marginRight="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabCustomSize="50dp"
+        app:maxImageSize="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/currentSongCard"

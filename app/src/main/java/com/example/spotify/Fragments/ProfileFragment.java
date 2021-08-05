@@ -24,6 +24,7 @@ import com.example.spotify.Adapters.PostsAdapter;
 import com.example.spotify.R;
 import com.example.spotify.ExternalLibraries.SpotifyClient;
 import com.example.spotify.ExternalLibraries.VolleyCallback;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -55,7 +56,7 @@ public class ProfileFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
-    private Button logoutBtn;
+    private FloatingActionButton logoutBtn;
     private RecyclerView rvPosts;
     private TextView tvUsername;
     private TextView tvName;
