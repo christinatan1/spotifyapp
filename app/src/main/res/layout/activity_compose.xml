@@ -61,6 +61,8 @@
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
             android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_music_note_24"
             android:text="" />
         </androidx.cardview.widget.CardView>
 
@@ -79,6 +81,8 @@
         <RadioButton
             android:id="@+id/topSong"
             android:padding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_bar_chart_24"
+            android:drawablePadding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
@@ -103,6 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_baseline_playlist_play_24"
                 android:text="" />
         </androidx.cardview.widget.CardView>
 
@@ -118,7 +124,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="" />
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_playlist_play_24"
+            android:text="">
+        </RadioButton>
         </androidx.cardview.widget.CardView>
 
     </RadioGroup>
