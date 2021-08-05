@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private TransitionButton btnLogin;
     private TransitionButton btnSignup;
+    private TextView textSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
+        textSignup = findViewById(R.id.textSignup);
 
         // checks with backend to see if user exists once user clicks "submit"
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     btnLogin.startAnimation();
                     btnSignup.setVisibility(View.GONE);
                     btnSignup.setText("");
+                    textSignup.setVisibility(View.GONE);
 
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {

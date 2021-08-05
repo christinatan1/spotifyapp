@@ -175,9 +175,10 @@ public class UserProfilesActivity extends AppCompatActivity {
         List currentUserSongArtists = currentUser.getList("topSongArtists");
 
         // print top 8 songs from post user's spotify
-        for (int i = 0; i < postUserSongArtists.size(); i++){
+        for (int i = 0; i < postUserSongArtists.size() - 1; i++){
             output += (Integer.toString(i+1) + ". " + postUserSongs.get(i) + " by " + postUserSongArtists.get(i) + "\n\n");
         }
+        output += (Integer.toString(postUserSongArtists.size()) + ". " + postUserSongs.get(postUserSongArtists.size()-1) + " by " + postUserSongArtists.get(postUserSongArtists.size()-1));
 
         return output;
     }

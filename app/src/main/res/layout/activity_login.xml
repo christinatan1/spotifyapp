@@ -7,51 +7,94 @@
     android:orientation="vertical"
     tools:context=".Activities.LoginActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp" />
 
-    <EditText
-        android:id="@+id/etUsername"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username"
+        android:layout_below="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:layout_margin="15dp"
+        android:layout_marginHorizontal="15dp"
+        app:endIconMode="custom"
+        android:layout_marginTop="30dp"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
         android:hint="username"
-        />
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/etPassword"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password"
+        android:layout_below="@+id/username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
+        android:layout_marginHorizontal="15dp"
+        app:endIconMode="custom"
+        app:startIconDrawable="@drawable/ic_outline_lock_24"
         android:hint="password"
-        android:layout_margin="15dp"
-        android:inputType="textPassword"
-        android:layout_below="@+id/etUsername"
-        />
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.royrodriguez.transitionbutton.TransitionButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_margin="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="15dp"
         app:defaultColor="#5879BC"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/etPassword"
+        android:layout_below="@+id/password"
         android:text="Login" />
+
+    <TextView
+        android:id="@+id/textSignup"
+        android:text="Don't have an account?"
+        android:layout_below="@+id/btnLogin"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        android:padding="15dp"
+        android:layout_marginLeft="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.royrodriguez.transitionbutton.TransitionButton
         android:id="@+id/btnSignup"
-        android:layout_width="match_parent"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_margin="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/textSignup"
         android:layout_below="@+id/btnLogin"
         android:text="Signup"
         app:defaultColor="#5879BC"
-
         android:textColor="@android:color/white" />
+
 
 
 </RelativeLayout>
