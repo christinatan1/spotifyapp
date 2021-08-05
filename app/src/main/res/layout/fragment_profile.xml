@@ -18,6 +18,7 @@
 
     <TextView
         android:id="@+id/tvName"
+        android:fontFamily="@font/nexa_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/ivProfilePic"
@@ -140,8 +141,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:fontFamily="@font/nexa_bold"
                 android:text=""
                 android:paddingTop="10dp"
+                android:paddingRight="5dp"
                 android:textStyle="bold"
                 android:textSize="6pt"
                 android:textAlignment="center" />
