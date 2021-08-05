@@ -24,6 +24,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> {
 
     private Context context;
@@ -72,8 +74,11 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvUsername;
+        private TextView tvName;
         private ImageView ivProfilePicture;
         private TextView playingSong;
+        private GifImageView musicGif;
+        private TextView tvLocation;
 
         // create references to views for easy access later
         public ViewHolder(@NonNull View itemView) {
@@ -81,11 +86,18 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
             playingSong = itemView.findViewById(R.id.playingSong);
+            musicGif = itemView.findViewById(R.id.musicGif);
+            tvLocation = itemView.findViewById(R.id.tvLocation);
+            tvName = itemView.findViewById(R.id.tvName);
         }
 
         public void bind(ParseUser user) {
             // bind the post data to the view elements
             tvUsername.setText(user.getUsername());
+            tvName.setText(user.getString("name"));
+            playingSong.setText(user.getString("songPlaying"));
+            tvLocation.setText(user.getString("location"));
+
 
             ParseFile profilePhoto = user.getParseFile("profilePicture");
             if (profilePhoto != null){
@@ -94,8 +106,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
                 Glide.with(context).load(user.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePicture);
             }
 
-            playingSong.setText(user.getString("songPlaying"));
-
+            if (user.getString("songPlaying") == null || user.getString("songPlaying").equals("")){
+                musicGif.setVisibility(View.GONE);
+            }
             // go to post author's profile if current user clicked on the post author's username
             tvUsername.setOnClickListener(new View.OnClickListener() {
                 @Override
