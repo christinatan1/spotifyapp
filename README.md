@@ -1,7 +1,7 @@
 Original App Design Project - README
 ===
 
-# [tentative name]
+# [Sound City]
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -25,9 +25,13 @@ Allows people using the app to share their music with their follows and see musi
 
 ## Video Walkthrough
 
-Here's a walkthrough of the progress I've made so far:
+Here's a walkthrough of the progress I've made so far (part 1):
 
-<img src='https://github.com/christinatan1/spotifyapp/blob/main/week%206.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/christinatan1/spotifyapp/blob/main/week7part1.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Part Two:
+
+<img src='https://github.com/christinatan1/spotifyapp/blob/main/week7part2.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Product Spec
 
@@ -44,15 +48,14 @@ Here's a walkthrough of the progress I've made so far:
 
 **Optional Nice-to-have Stories**
 
-* User can like and comment on other users' posts
-* User can recieve notifications when their post is like or commented on
+* User can like other users' posts
+* User can comment on other users' posts
 * User can play a song from a post directly in the app
-* User can see list of followers
-* User can see list of following
+* User can see list of followers and following
 * User can start a group music session and listen to music simultaneously with their friends
 * User picks a song that plays to vistors on their profile
-* User can explore map and find users from around the world and visit their profile
 * User can choose song lyrics from a song and post them (using the Genuis API)
+* Algorithm that calculates compatibility score when user clicks on another user's profile
 
 
 ### 2. Screen Archetypes
