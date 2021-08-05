@@ -1,7 +1,7 @@
 Original App Design Project - README
 ===
 
-# [Sound City]
+# Sound City
 
 ## Table of Contents
 1. [Overview](#Overview)
