@@ -140,7 +140,7 @@
         android:background="@drawable/transparent_button_border"
         android:id="@+id/compatibilityScore"
         android:padding="10dp"
-        android:text="Compatibility Score: 90%"
+        android:text="Compatibility Score: 100%"
         android:layout_below="@+id/topSongsCard"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"

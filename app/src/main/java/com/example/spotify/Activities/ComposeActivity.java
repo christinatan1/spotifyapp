@@ -29,6 +29,7 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ComposeActivity extends AppCompatActivity {
 

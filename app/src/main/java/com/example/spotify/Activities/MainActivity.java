@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageButton ibPause;
     public static ImageButton ibPlayBottom;
     public static View bottomSheetParent;
+    public static FloatingActionButton logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         ibPause = findViewById(R.id.ibPause);
         ibPlayBottom = findViewById(R.id.ibPlayBottom);
         bottomSheetParent = findViewById(R.id.bottom_sheet_parent);
+        logoutBtn = findViewById(R.id.logoutBtn);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -99,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_allPosts);
 
         // spotify authorization - ask user for login information and ask specific permissions (scopes)
         AuthorizationRequest.Builder builder =

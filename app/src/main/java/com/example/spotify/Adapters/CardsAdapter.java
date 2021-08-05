@@ -93,7 +93,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
 
         public void bind(ParseUser user) {
             // bind the post data to the view elements
-            tvUsername.setText(user.getUsername());
+            tvUsername.setText("@" + user.getUsername());
             tvName.setText(user.getString("name"));
             playingSong.setText(user.getString("songPlaying"));
             tvLocation.setText(user.getString("location"));

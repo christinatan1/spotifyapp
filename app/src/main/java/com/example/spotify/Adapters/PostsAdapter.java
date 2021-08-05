@@ -123,6 +123,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 MainActivity.songTitle.setSelected(true);
                 MainActivity.songArtist.setText(post.getSongArtist());
                 MainActivity.songTitle.setText(post.getSongTitle());
+                if (MainActivity.logoutBtn != null){
+                    MainActivity.logoutBtn.setY(MainActivity.logoutBtn.getY() - 10);
+                }
 
                 Glide.with(context).load(post.getSongAlbumCover()).into(MainActivity.songAlbumCover);
             }

@@ -147,8 +147,9 @@ public class HomeFragment extends Fragment {
 
                     // show notice that user is not following anyone
                     if (allPosts.size() == 0){
+                        swipeContainer.setVisibility(View.GONE);
                         rvPosts.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Follow users to see posts in homepage!", Toast.LENGTH_SHORT).show();
+                        noFollowing.setVisibility(View.VISIBLE);
                     }
                 }
             });

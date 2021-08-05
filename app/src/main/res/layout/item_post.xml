@@ -83,6 +83,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="5dp"
                 android:text="Yellow"
+                android:fontFamily="@font/nexa_bold"
                 android:textAlignment="textStart" />
 
             <TextView

@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/ivProfilePicture"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:baselineAlignBottom="false"
@@ -38,10 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvName"
-            android:layout_marginTop="1dp"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:textSize="6pt"
+            android:textSize="5pt"
             android:text="christina" />
 
         <ImageView
@@ -49,8 +48,8 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_below="@+id/tvUsername"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="45dp"
             android:layout_marginRight="2dp"
             android:src="@drawable/ic_baseline_location_on_24"
             app:tint="@color/grey" />
@@ -61,10 +60,10 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/locationIcon"
             android:layout_below="@+id/tvUsername"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:textSize="5pt"
+            android:textSize="5.5pt"
             android:textStyle="bold"
             android:text="new york, us" />
 
