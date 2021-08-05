@@ -10,22 +10,32 @@
         android:id="@+id/ivProfilePic"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="match_parent"
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProfilePic"
-        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/ivProfilePic"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="8pt"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        android:text="christina" />
+        android:text="Christina Tan" />
 
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_toRightOf="@+id/ivProfilePic"
+        android:textAlignment="center"
+        android:text="christina" />
 
     <TableLayout
         android:id="@+id/userFollow"
@@ -33,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
+        android:visibility="gone"
         android:layout_height="wrap_content">
 
         <TableRow
@@ -83,39 +94,71 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </TableRow>
-
     </TableLayout>
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutBtn"
         android:text="Logout"
-        android:layout_below="@+id/userFollow"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ivProfilePic"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/currentSong"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/currentSongCard"
+        android:layout_below="@+id/tvUsername"
+        android:layout_toRightOf="@+id/ivProfilePic"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="8dp"
+        app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logoutBtn"
-        android:text=""
-        android:textAlignment="center" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/currentSongArtist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/currentSong"
-        android:text=""
-        android:textAlignment="center" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/songGif"
+                android:src="@drawable/music_gif"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:scaleType="fitXY"
+                android:scaleY="4"
+                android:scaleX="4"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:id="@+id/currentSong"
+                android:layout_toRightOf="@id/songGif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text=""
+                android:paddingTop="10dp"
+                android:textStyle="bold"
+                android:textSize="6pt"
+                android:textAlignment="center" />
+            <TextView
+                android:id="@+id/currentSongArtist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/currentSong"
+                android:layout_toRightOf="@+id/songGif"
+                android:layout_marginLeft="5dp"
+                android:paddingBottom="10dp"
+                android:textSize="5pt"
+                android:text=""
+                android:textAlignment="center" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPosts"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/currentSongArtist"
+        android:layout_below="@+id/logoutBtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"

@@ -77,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     // start the loading animation when the user tap the button
                     btnLogin.startAnimation();
+                    btnSignup.setVisibility(View.GONE);
+                    btnSignup.setText("");
 
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {

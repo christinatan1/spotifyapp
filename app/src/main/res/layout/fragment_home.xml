@@ -13,4 +13,12 @@
         android:layout_centerInParent="true"
         android:padding="8dp" />
 
+    <TextView
+        android:id="@+id/noFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="10pt"
+        android:text="Follow users to see posts here!" />
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class HomeFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
+    private TextView noFollowing;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -77,10 +79,12 @@ public class HomeFragment extends Fragment {
         // create references to views for easy access later
         rvPosts = view.findViewById(R.id.rvPosts);
         swipeContainer = view.findViewById(R.id.swipeContainer);
+        noFollowing = view.findViewById(R.id.noFollowing);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
+        rvPosts.setVisibility(View.VISIBLE);
 
         // setup refresh listener when user swipes up to refresh, which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -140,6 +144,12 @@ public class HomeFragment extends Fragment {
                     // save received posts to list and notify adapter of new data, invalidates existing items and rebinds data
                     allPosts.addAll(posts);
                     adapter.notifyDataSetChanged();
+
+                    // show notice that user is not following anyone
+                    if (allPosts.size() == 0){
+                        rvPosts.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Follow users to see posts in homepage!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

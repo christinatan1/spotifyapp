@@ -79,6 +79,7 @@ public class ComposeActivity extends AppCompatActivity {
         playlistTwo = findViewById(R.id.playlistTwo);
         btnBack = findViewById(R.id.btnBack);
 
+
         // submit post
         submitListener();
 

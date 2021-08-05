@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_margin="15dp"
-        app:defaultColor="@color/button_default"
+        app:defaultColor="#5879BC"
         android:textColor="@android:color/white"
         android:layout_below="@+id/etPassword"
         android:text="Login" />
@@ -49,8 +49,8 @@
         android:layout_margin="15dp"
         android:layout_below="@+id/btnLogin"
         android:text="Signup"
-        app:defaultColor="@color/button_default"
-        android:background="@color/button_default"
+        app:defaultColor="#5879BC"
+
         android:textColor="@android:color/white" />
 
 

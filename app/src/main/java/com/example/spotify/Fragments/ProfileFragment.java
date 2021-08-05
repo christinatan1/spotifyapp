@@ -58,12 +58,12 @@ public class ProfileFragment extends Fragment {
     private Button logoutBtn;
     private RecyclerView rvPosts;
     private TextView tvUsername;
+    private TextView tvName;
     private ImageView ivProfilePic;
     private TextView followerCount;
     private TextView followingCount;
     private TextView currentSong;
     private TextView currentSongArtist;
-
 
     public ProfileFragment() {
         // required empty public constructor
@@ -111,6 +111,7 @@ public class ProfileFragment extends Fragment {
         followingCount = view.findViewById(R.id.followingCount);
         currentSong = view.findViewById(R.id.currentSong);
         currentSongArtist = view.findViewById(R.id.currentSongArtist);
+        tvName = view.findViewById(R.id.tvName);
 
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
@@ -146,7 +147,8 @@ public class ProfileFragment extends Fragment {
             Glide.with(getContext()).load(currentUser.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
 
-        tvUsername.setText(currentUser.getUsername());
+        tvUsername.setText("@" + currentUser.getUsername());
+        tvName.setText(currentUser.getString("name"));
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));
         followingCount.setText(String.valueOf(currentUser.getInt("following")));
     }
