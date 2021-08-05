@@ -147,6 +147,7 @@ public class ProfileFragment extends Fragment {
             Glide.with(getContext()).load(currentUser.getString("spotifyProfilePicture")).apply(RequestOptions.circleCropTransform()).into(ivProfilePic);
         }
 
+        // set user profile details from parse backend
         tvUsername.setText("@" + currentUser.getUsername());
         tvName.setText(currentUser.getString("name"));
         followerCount.setText(String.valueOf(currentUser.getInt("followers")));

@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // connects to play button on bottom sheet (not on individual posts)
         ibPlayBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

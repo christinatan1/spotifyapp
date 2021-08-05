@@ -115,14 +115,13 @@ public class SpotifyClient {
                     }
                 })
         {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                String auth = "Bearer " + ACCESS_TOKEN;
-                headers.put("Authorization: ", auth);
-                return headers;
-            }
-
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    String auth = "Bearer " + ACCESS_TOKEN;
+                    headers.put("Authorization: ", auth);
+                    return headers;
+                }
         };
         queue.add(jsonObjectRequest);
     }

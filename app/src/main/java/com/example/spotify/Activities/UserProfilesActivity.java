@@ -70,8 +70,6 @@ public class UserProfilesActivity extends AppCompatActivity {
 
         // get backend info
         int numFollowers = postUser.getInt("followers");
-//        followerCount.setText(String.valueOf(postUser.getInt("followers")));
-//        followingCount.setText(String.valueOf(postUser.getInt("following")));
         tvUsername.setText("@" + postUser.getUsername());
         location.setText(postUser.getString("location"));
         topGenre.setText(postUser.getString("topGenres"));

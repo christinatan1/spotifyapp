@@ -63,8 +63,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         songArtist = parent.findViewById(R.id.songArtist);
         songTitle = parent.findViewById(R.id.songTitle);
 
-//        songArtist.setText("Hello");
-
         // pass in a blueprint of the xml file
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
         // wrap a view into a view holder for easy access

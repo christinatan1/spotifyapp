@@ -79,7 +79,6 @@ public class ComposeActivity extends AppCompatActivity {
         playlistTwo = findViewById(R.id.playlistTwo);
         btnBack = findViewById(R.id.btnBack);
 
-
         // submit post
         submitListener();
 
@@ -91,6 +90,7 @@ public class ComposeActivity extends AppCompatActivity {
         // onRadioButtonClicked(currentSong);
         // onRadioButtonClicked(topSong);
 
+        // back button on top of page
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,11 +115,9 @@ public class ComposeActivity extends AppCompatActivity {
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
                 if (onRadioButtonSelected(topSong) == "current song" || onRadioButtonSelected(currentSong) == "current song") {
-//                    descriptionSpotify = description_currentSong;
                     savePostSpotify(description, currentUser, client.current_song);
                 } else if (onRadioButtonSelected(topSong) == "top song" || onRadioButtonSelected(currentSong) == "top song") {
                     submitSong = client.top_song.clone();
-//                    descriptionSpotify = description_topSong;
                     savePostSpotify(description, currentUser, client.top_song);
                 } else if (onRadioButtonSelected(playlistOne) == "first playlist" || onRadioButtonSelected(playlistTwo) == "first playlist"){
                     savePostPlaylist(description, currentUser, 0);
@@ -180,7 +178,7 @@ public class ComposeActivity extends AppCompatActivity {
                         // something went wrong when attempting to connect, Handle errors here
                         Log.e(TAG, throwable.getMessage(), throwable);
                     }
-                });
+            });
     }
 
     // check which button was clicked once submit button is clicked
@@ -237,6 +235,7 @@ public class ComposeActivity extends AppCompatActivity {
         return null;
     }
 
+    // get lyrics from lyrics api and return string of lyrics
     private String getLyrics(String artist, String title) {
         LyricsClient client = new LyricsClient(ComposeActivity.this);
 
@@ -281,7 +280,6 @@ public class ComposeActivity extends AppCompatActivity {
 
     // creates post w/ extra spotify song
     private void savePostSpotify(String description, ParseUser currentUser, String[] songDetails) {
-
         Post post = new Post();
         post.setDescription(description);
         post.setUser(currentUser);
@@ -314,11 +312,9 @@ public class ComposeActivity extends AppCompatActivity {
         });
     }
 
-
     // creates post w/ playlists
-    // int starts from index 0
+    // int starts from index 0, from list of playlists the api got
     private void savePostPlaylist(String description, ParseUser currentUser, int i) {
-
         Post post = new Post();
         post.setDescription(description);
         post.setUser(currentUser);

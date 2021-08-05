@@ -105,7 +105,6 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
                     context.startActivity(i);
                 }
             });
-
         }
     }
 }
