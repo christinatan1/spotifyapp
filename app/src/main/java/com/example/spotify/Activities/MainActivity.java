@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     // spotify info
     private static final String CLIENT_ID = "cae795cea2f94211bce48b701c1cfa40";
     private static final String REDIRECT_URI = "com.example.spotify://callback";
-    private static final String[] scope = {"user-read-playback-state", "user-top-read", "playlist-read-private"};
+    private static final String[] scope = {"user-read-playback-state", "user-top-read", "playlist-read-private", "user-read-private",
+            "user-read-email", "playlist-read-private", "user-modify-playback-state", "user-read-email", "user-read-currently-playing"};
     private static final int REQUEST_CODE = 1337;
     public static String ACCESS_TOKEN;
 

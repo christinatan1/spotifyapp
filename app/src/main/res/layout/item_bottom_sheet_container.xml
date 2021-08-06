@@ -35,9 +35,7 @@
             android:paddingBottom="2dp"
             android:text="Song Title"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:textSize="15sp"
-
             android:ellipsize = "marquee"
             android:fadingEdge = "horizontal"
             android:marqueeRepeatLimit = "marquee_forever"
@@ -54,7 +52,6 @@
             android:layout_marginLeft="60dp"
             android:paddingBottom="2dp"
             android:text="Song Artist"
-            android:textColor="@color/black"
             android:textSize="11sp" />
 
         <ImageButton

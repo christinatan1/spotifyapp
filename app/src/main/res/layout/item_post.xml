@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivProfile"
         android:text="TextView"
+        android:textStyle="bold"
         android:textSize="6pt"
         tools:text="christina" />
 

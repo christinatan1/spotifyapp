@@ -43,6 +43,7 @@ public class UserProfilesActivity extends AppCompatActivity {
     private TextView topGenre;
     private ImageButton btnFollow;
     private ImageButton btnBack;
+    private TextView tvName;
     public static final String TAG = "UserProfilesActivity";
 
     @Override
@@ -57,6 +58,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         ivProfilePic = findViewById(R.id.ivProfilePic);
         topUserSongs = findViewById(R.id.topSongs);
         compatibilityScore = findViewById(R.id.compatibilityScore);
+        tvName = findViewById(R.id.tvName);
         location = findViewById(R.id.location);
         topGenre = findViewById(R.id.topGenre);
         btnFollow = findViewById(R.id.btnFollow);
@@ -71,6 +73,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         // get backend info
         int numFollowers = postUser.getInt("followers");
         tvUsername.setText("@" + postUser.getUsername());
+        tvName.setText(postUser.getString("name"));
         location.setText(postUser.getString("location"));
         topGenre.setText(postUser.getString("topGenres"));
 
@@ -138,7 +141,7 @@ public class UserProfilesActivity extends AppCompatActivity {
             compatScore += 10;
         }
 
-        if (postUserGenre == currentUserGenre){
+        if (postUserGenre.equals(currentUserGenre)){
             compatScore += 10;
         }
 

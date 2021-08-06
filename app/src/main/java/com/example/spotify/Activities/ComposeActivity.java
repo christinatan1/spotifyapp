@@ -167,10 +167,11 @@ public class ComposeActivity extends AppCompatActivity {
                         client.getUserPlaylists(new VolleyCallback() {
                             @Override
                             public void onSuccess() {
-                                // get info from client, set it as a global variable in compose activity for other methods
-                                playlistOne.setText(client.playlist_titles.get(0) + "\n" + "@" +currentUser.getString("spotifyUsername"));
-                                playlistTwo.setText(client.playlist_titles.get(1) + "\n" + "@" + currentUser.getString("spotifyUsername"));
-                                user_playlist_pictures = client.user_playlist_covers;
+                                if (client.user_playlist_covers.size() != 0) {
+                                    playlistOne.setText(client.playlist_titles.get(0) + "\n" + "@" + currentUser.getString("spotifyUsername"));
+                                    playlistTwo.setText(client.playlist_titles.get(1) + "\n" + "@" + currentUser.getString("spotifyUsername"));
+                                    user_playlist_pictures = client.user_playlist_covers;
+                                }
                             }
                         }, currentUser.getString("spotifyUsername"));
                     }
