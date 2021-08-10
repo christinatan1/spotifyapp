@@ -25,7 +25,7 @@ Allows people using the app to share their music with their follows and see musi
 
 ## Video Walkthrough
 
-Here's a walkthrough of the progress I've made so far (part 1):
+Here's a demo of my app: https://youtu.be/t20sXrwnudY
 
 <img src='https://github.com/christinatan1/spotifyapp/blob/main/week7part1.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
