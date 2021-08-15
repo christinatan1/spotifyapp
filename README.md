@@ -10,10 +10,10 @@ Original App Design Project - README
 2. [Schema](#Schema)
 
 ## Overview
-Music sharing app that allows users to create a profile and share music they enjoy with their friends, as well as see what their friends are listening to.
+This app was developed during Facebook University, on the Android track, during the summer of 2021. Sound City is an app where users can connect to their Spotify and share music with their friends. They can discover new music through their friends' posts, and they can see directly what their friends are listening to.
 
 ### Description
-Allows people using the app to share their music with their follows and see music that people they follow post. Users can customize their profile with emojis and music, as well as display their most recently played song. They can also start a collaborative music session with their friends to listen to music together. Upon entering the app, users will be taken to the login page, where they will be prompted to create an account and profile.
+Sound City is a music sharing app where users can users can connect to Spotify and share their playlists, top songs of the month, and even their currently playing song. They can play a song or playlist from a post in the app, and when they click on another user’s profile, they can view their compatibility score with them, calculated based on how similar their details are.
 
 ### App Evaluation
 - **Category:** Social Media
@@ -27,11 +27,13 @@ Allows people using the app to share their music with their follows and see musi
 
 Here's a demo of my app: https://youtu.be/t20sXrwnudY
 
-<img src='https://github.com/christinatan1/spotifyapp/blob/main/week7part1.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Here is a short GIF walkthrough of my app (part 1):
+
+<img src='https://github.com/christinatan1/spotifyapp/blob/main/finalpart1.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 Part Two:
 
-<img src='https://github.com/christinatan1/spotifyapp/blob/main/week7part2.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/christinatan1/spotifyapp/blob/main/finalpart2.gif' width =40% height =40% title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Product Spec
 
